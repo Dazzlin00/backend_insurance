@@ -4,64 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "65e85f9f959c0b087110331754d451cf",
+    "content-hash": "605c8d79bfdab401a7c9e07dae883ee4",
     "packages": [
-        {
-            "name": "asm89/stack-cors",
-            "version": "v2.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/asm89/stack-cors.git",
-                "reference": "73e5b88775c64ccc0b84fb60836b30dc9d92ac4a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/asm89/stack-cors/zipball/73e5b88775c64ccc0b84fb60836b30dc9d92ac4a",
-                "reference": "73e5b88775c64ccc0b84fb60836b30dc9d92ac4a",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2|^8.0",
-                "symfony/http-foundation": "^4|^5|^6",
-                "symfony/http-kernel": "^4|^5|^6"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^7|^9",
-                "squizlabs/php_codesniffer": "^3.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Asm89\\Stack\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alexander",
-                    "email": "iam.asm89@gmail.com"
-                }
-            ],
-            "description": "Cross-origin resource sharing library and stack middleware",
-            "homepage": "https://github.com/asm89/stack-cors",
-            "keywords": [
-                "cors",
-                "stack"
-            ],
-            "support": {
-                "issues": "https://github.com/asm89/stack-cors/issues",
-                "source": "https://github.com/asm89/stack-cors/tree/v2.1.1"
-            },
-            "time": "2022-01-18T09:12:03+00:00"
-        },
         {
             "name": "brick/math",
             "version": "0.11.0",
@@ -490,34 +434,34 @@
         },
         {
             "name": "fruitcake/laravel-cors",
-            "version": "v2.2.0",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fruitcake/laravel-cors.git",
-                "reference": "783a74f5e3431d7b9805be8afb60fd0a8f743534"
+                "reference": "7c036ec08972d8d5d9db637e772af6887828faf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fruitcake/laravel-cors/zipball/783a74f5e3431d7b9805be8afb60fd0a8f743534",
-                "reference": "783a74f5e3431d7b9805be8afb60fd0a8f743534",
+                "url": "https://api.github.com/repos/fruitcake/laravel-cors/zipball/7c036ec08972d8d5d9db637e772af6887828faf5",
+                "reference": "7c036ec08972d8d5d9db637e772af6887828faf5",
                 "shasum": ""
             },
             "require": {
-                "asm89/stack-cors": "^2.0.1",
+                "fruitcake/php-cors": "^1.2",
                 "illuminate/contracts": "^6|^7|^8|^9",
                 "illuminate/support": "^6|^7|^8|^9",
-                "php": ">=7.2"
+                "php": "^7.4|^8.0"
             },
             "require-dev": {
                 "laravel/framework": "^6|^7.24|^8",
                 "orchestra/testbench-dusk": "^4|^5|^6|^7",
-                "phpunit/phpunit": "^6|^7|^8|^9",
+                "phpunit/phpunit": "^9",
                 "squizlabs/php_codesniffer": "^3.5"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1-dev"
+                    "dev-master": "3.0-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -553,7 +497,7 @@
             ],
             "support": {
                 "issues": "https://github.com/fruitcake/laravel-cors/issues",
-                "source": "https://github.com/fruitcake/laravel-cors/tree/v2.2.0"
+                "source": "https://github.com/fruitcake/laravel-cors/tree/v3.0.0"
             },
             "funding": [
                 {
@@ -566,7 +510,7 @@
                 }
             ],
             "abandoned": true,
-            "time": "2022-02-23T14:25:13+00:00"
+            "time": "2022-02-23T14:53:22+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -1112,16 +1056,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.52.14",
+            "version": "v9.52.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "5366a9035100f858589e1b43bbcb134ffcc81a73"
+                "reference": "e3350e87a52346af9cc655a3012d2175d2d05ad7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/5366a9035100f858589e1b43bbcb134ffcc81a73",
-                "reference": "5366a9035100f858589e1b43bbcb134ffcc81a73",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/e3350e87a52346af9cc655a3012d2175d2d05ad7",
+                "reference": "e3350e87a52346af9cc655a3012d2175d2d05ad7",
                 "shasum": ""
             },
             "require": {
@@ -1306,7 +1250,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-08-02T14:58:02+00:00"
+            "time": "2023-08-08T14:28:40+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -1839,26 +1783,26 @@
         },
         {
             "name": "league/mime-type-detection",
-            "version": "1.12.0",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/mime-type-detection.git",
-                "reference": "c7f2872fb273bf493811473dafc88d60ae829f48"
+                "reference": "a6dfb1194a2946fcdc1f38219445234f65b35c96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/mime-type-detection/zipball/c7f2872fb273bf493811473dafc88d60ae829f48",
-                "reference": "c7f2872fb273bf493811473dafc88d60ae829f48",
+                "url": "https://api.github.com/repos/thephpleague/mime-type-detection/zipball/a6dfb1194a2946fcdc1f38219445234f65b35c96",
+                "reference": "a6dfb1194a2946fcdc1f38219445234f65b35c96",
                 "shasum": ""
             },
             "require": {
                 "ext-fileinfo": "*",
-                "php": "^7.2 || ^8.0"
+                "php": "^7.4 || ^8.0"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.2",
                 "phpstan/phpstan": "^0.12.68",
-                "phpunit/phpunit": "^8.5.8 || ^9.3"
+                "phpunit/phpunit": "^8.5.8 || ^9.3 || ^10.0"
             },
             "type": "library",
             "autoload": {
@@ -1879,7 +1823,7 @@
             "description": "Mime-type detection for Flysystem",
             "support": {
                 "issues": "https://github.com/thephpleague/mime-type-detection/issues",
-                "source": "https://github.com/thephpleague/mime-type-detection/tree/1.12.0"
+                "source": "https://github.com/thephpleague/mime-type-detection/tree/1.13.0"
             },
             "funding": [
                 {
@@ -1891,7 +1835,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-08-03T07:14:11+00:00"
+            "time": "2023-08-05T12:09:49+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -3127,6 +3071,88 @@
                 }
             ],
             "time": "2023-04-15T23:01:58+00:00"
+        },
+        {
+            "name": "spatie/laravel-permission",
+            "version": "5.10.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-permission.git",
+                "reference": "671e46e079cbd4990a98427daaa09f4977b57ca9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/671e46e079cbd4990a98427daaa09f4977b57ca9",
+                "reference": "671e46e079cbd4990a98427daaa09f4977b57ca9",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/auth": "^7.0|^8.0|^9.0|^10.0",
+                "illuminate/container": "^7.0|^8.0|^9.0|^10.0",
+                "illuminate/contracts": "^7.0|^8.0|^9.0|^10.0",
+                "illuminate/database": "^7.0|^8.0|^9.0|^10.0",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.0|^6.0|^7.0|^8.0",
+                "phpunit/phpunit": "^9.4",
+                "predis/predis": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "5.x-dev",
+                    "dev-master": "5.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Permission\\PermissionServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Spatie\\Permission\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Permission handling for Laravel 6.0 and up",
+            "homepage": "https://github.com/spatie/laravel-permission",
+            "keywords": [
+                "acl",
+                "laravel",
+                "permission",
+                "permissions",
+                "rbac",
+                "roles",
+                "security",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-permission/issues",
+                "source": "https://github.com/spatie/laravel-permission/tree/5.10.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-07-04T13:38:13+00:00"
         },
         {
             "name": "symfony/console",
@@ -5909,16 +5935,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.23.1",
+            "version": "v1.23.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "62582606f80466aa81fba40b193b289106902853"
+                "reference": "f8694d6af5729be72ae96b91e344c5676c89114a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/62582606f80466aa81fba40b193b289106902853",
-                "reference": "62582606f80466aa81fba40b193b289106902853",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/f8694d6af5729be72ae96b91e344c5676c89114a",
+                "reference": "f8694d6af5729be72ae96b91e344c5676c89114a",
                 "shasum": ""
             },
             "require": {
@@ -5970,35 +5996,35 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2023-06-28T18:31:28+00:00"
+            "time": "2023-08-07T13:01:51+00:00"
         },
         {
             "name": "mockery/mockery",
-            "version": "1.6.4",
+            "version": "1.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "d1413755e26fe56a63455f7753221c86cbb88f66"
+                "reference": "b8e0bb7d8c604046539c1115994632c74dcb361e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/d1413755e26fe56a63455f7753221c86cbb88f66",
-                "reference": "d1413755e26fe56a63455f7753221c86cbb88f66",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/b8e0bb7d8c604046539c1115994632c74dcb361e",
+                "reference": "b8e0bb7d8c604046539c1115994632c74dcb361e",
                 "shasum": ""
             },
             "require": {
                 "hamcrest/hamcrest-php": "^2.0.1",
                 "lib-pcre": ">=7.0",
-                "php": ">=7.4,<8.3"
+                "php": ">=7.3"
             },
             "conflict": {
                 "phpunit/phpunit": "<8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^8.5 || ^9.3",
+                "phpunit/phpunit": "^8.5 || ^9.6.10",
                 "psalm/plugin-phpunit": "^0.18.4",
                 "symplify/easy-coding-standard": "^11.5.0",
-                "vimeo/psalm": "^5.13.1"
+                "vimeo/psalm": "^4.30"
             },
             "type": "library",
             "autoload": {
@@ -6055,7 +6081,7 @@
                 "security": "https://github.com/mockery/mockery/security/advisories",
                 "source": "https://github.com/mockery/mockery"
             },
-            "time": "2023-07-19T15:51:02+00:00"
+            "time": "2023-08-09T00:03:52+00:00"
         },
         {
             "name": "myclabs/deep-copy",
