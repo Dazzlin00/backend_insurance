@@ -19,8 +19,8 @@ class LoginController extends Controller
             Helper::sendError('Email o Contraseña incorrectos');
         }
 
-       Helper::sendSuccess('Bienvenido');
-    
+      // Helper::sendSuccess('Bienvenido');
+       return new UserResource(auth()->user());
     }
     public function userprofile(Request $request)
     {
