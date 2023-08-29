@@ -30,8 +30,26 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   ////SOLO LOS USUARIOS CON EL PERMISO users.list PUEDEN VER LA LISTA DE USUARIOS
   Route::get('users', [UserController::class, 'index'])->middleware(('can:users.list'))->name('users.list');
 
-  //SOLO LOS USUARIOS CON EL PERMISO  users.policies PUEDEN VER LAS POLIZAS---------------------------------------------
+  //RUTAS PARA LAS POLIZAS
 
-  Route::get('polizas', [PolizaController::class, 'index'])->middleware(('can:users.policies'))->name('users.policies');
+  //SOLO LOS USUARIOS CON EL PERMISO  users.policies PUEDEN VER LAS POLIZAS---------------------------------------------
+  Route::get('polizas', [PolizaController::class, 'index'])->middleware(('can:users.policies'))->name('users.policies'); //muestra todos los registros
+
+  //SOLO LOS USUARIOS CON EL PERMISO policies.view PUEDEN ver LAS POLIZAS---------------------------------------------
+  Route::get('polizas/{id}', [PolizaController::class, 'show'])->middleware(('can:policies.view'))->name('policies.view'); //ver una poliza
+
+  //SOLO LOS USUARIOS CON EL PERMISO policies.create PUEDEN CREAR LAS POLIZAS---------------------------------------------
+
+  Route::post('polizas', [PolizaController::class, 'store'])->middleware(('can:policies.create'))->name('policies.create'); //crea una poliza
+
+  //SOLO LOS USUARIOS CON EL PERMISO policies.update PUEDEN CREAR LAS POLIZAS---------------------------------------------
+
+  Route::put('polizas/{id}', [PolizaController::class, 'update'])->middleware(('can:policies.update'))->name('policies.update'); //Actualiza una poliza
+
+  //SOLO LOS USUARIOS CON EL PERMISO policies.udpate PUEDEN CREAR LAS POLIZAS---------------------------------------------
+
+  Route::delete('polizas/{id}', [PolizaController::class, 'destroy'])->middleware(('can:policies.delete'))->name('policies.delete'); //Elimina una poliza
+
+
 
 });

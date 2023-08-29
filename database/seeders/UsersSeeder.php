@@ -22,13 +22,13 @@ class UsersSeeder extends Seeder
         $user_list = Permission::create(['name' => 'users.list']); //LISTA DE USUARIOS
         $user_view = Permission::create(['name' => 'users.view']); // VER USUARIO
         $user_create = Permission::create(['name' => 'users.create']); //CREAR 
-        $user_udpate = Permission::create(['name' => 'users.udpate']); //ACTUALIZAR
+        $user_update = Permission::create(['name' => 'users.update']); //ACTUALIZAR
         $user_delete = Permission::create(['name' => 'users.delete']); //ELIMINAR
         //POLIZAS
         $policies = Permission::create(['name' => 'users.policies']); //POLIZAS
         $policies_view = Permission::create(['name' => 'policies.view']); // VER POLIZA
         $policies_create = Permission::create(['name' => 'policies.create']); // CREAR POLIZA
-        $policies_udpate = Permission::create(['name' => 'policies.udpate']); //ACTUALIZAR
+        $policies_update = Permission::create(['name' => 'policies.update']); //ACTUALIZAR
         $policies_delete = Permission::create(['name' => 'policies.delete']); //ELIMINAR
         $policies_request = Permission::create(['name' => 'policies.request']); //SOLICITAR
 
@@ -37,7 +37,7 @@ class UsersSeeder extends Seeder
         $sinister_report = Permission::create(['name' => 'sinister.report']); //REPORTAR
         $sinister_view = Permission::create(['name' => 'sinister.view']); // VER 
         $sinister_create = Permission::create(['name' => 'sinister.create']); // CREAR POLIZA
-        $sinister_udpate = Permission::create(['name' => 'sinister.udpate']); //ACTUALIZAR
+        $sinister_update = Permission::create(['name' => 'sinister.update']); //ACTUALIZAR
         $sinister_delete = Permission::create(['name' => 'sinister.delete']); //ELIMINAR
 
 
@@ -47,7 +47,7 @@ class UsersSeeder extends Seeder
         $clains_report = Permission::create(['name' => 'clains.report']); //REPORTAR
         $clains_view = Permission::create(['name' => 'clains.view']); // VER 
         $clains_create = Permission::create(['name' => 'clains.create']); // CREAR 
-        $clains_udpate = Permission::create(['name' => 'clains.udpate']); //ACTUALIZAR
+        $clains_update = Permission::create(['name' => 'clains.update']); //ACTUALIZAR
         $clains_delete = Permission::create(['name' => 'clains.delete']); //ELIMINAR
 
         //ADMIN
@@ -56,14 +56,14 @@ class UsersSeeder extends Seeder
             //USUARIOS
             $user_create,
             $user_list,
-            $user_udpate,
+            $user_update,
             $user_delete,
             $user_view,
             //POLIZAS
             $policies,
             $policies_view,
             $policies_create,
-            $policies_udpate,
+            $policies_update,
             $policies_delete,
 
 
@@ -72,7 +72,7 @@ class UsersSeeder extends Seeder
             $sinister_report,
             $sinister_view,
             $sinister_create,
-            $sinister_udpate,
+            $sinister_update,
             $sinister_delete,
 
 
@@ -82,7 +82,7 @@ class UsersSeeder extends Seeder
             $clains_report,
             $clains_view,
             $clains_create,
-            $clains_udpate,
+            $clains_update,
             $clains_delete,
 
         ]);
@@ -101,14 +101,14 @@ class UsersSeeder extends Seeder
             //USUARIOS
             $user_create,
             $user_list,
-            $user_udpate,
+            $user_update,
             $user_delete,
             $user_view,
             //POLIZAS
             $policies,
             $policies_view,
             $policies_create,
-            $policies_udpate,
+            $policies_update,
             $policies_delete,
 
 
@@ -117,7 +117,7 @@ class UsersSeeder extends Seeder
             $sinister_report,
             $sinister_view,
             $sinister_create,
-            $sinister_udpate,
+            $sinister_update,
             $sinister_delete,
 
 
@@ -127,7 +127,7 @@ class UsersSeeder extends Seeder
             $clains_report,
             $clains_view,
             $clains_create,
-            $clains_udpate,
+            $clains_update,
             $clains_delete,
         ]);
 
@@ -186,14 +186,14 @@ class UsersSeeder extends Seeder
             //USUARIOS
             $user_create,
             $user_list,
-            $user_udpate,
+            $user_update,
             $user_delete,
             $user_view,
             //POLIZAS
             $policies,
             $policies_view,
             $policies_create,
-            $policies_udpate,
+            $policies_update,
             $policies_delete,
 
 
@@ -201,7 +201,7 @@ class UsersSeeder extends Seeder
             $sinister,
             $sinister_report,
             $sinister_view,
-            $sinister_udpate,
+            $sinister_update,
 
 
 
@@ -211,7 +211,7 @@ class UsersSeeder extends Seeder
 
             $clains_view,
 
-            $clains_udpate,
+            $clains_update,
 
 
         ]);
@@ -221,14 +221,14 @@ class UsersSeeder extends Seeder
             //USUARIOS
             $user_create,
             $user_list,
-            $user_udpate,
+            $user_update,
             $user_delete,
             $user_view,
             //POLIZAS
             $policies,
             $policies_view,
             $policies_create,
-            $policies_udpate,
+            $policies_update,
             $policies_delete,
 
 
@@ -236,7 +236,7 @@ class UsersSeeder extends Seeder
             $sinister,
             $sinister_report,
             $sinister_view,
-            $sinister_udpate,
+            $sinister_update,
 
 
 
@@ -244,7 +244,7 @@ class UsersSeeder extends Seeder
 
             $clains,
             $clains_view,
-            $clains_udpate,
+            $clains_update,
 
         ]);
 

@@ -44,6 +44,8 @@ class PolizaController extends Controller
         $poliza->num_poliza= $request->num_poliza;
         $poliza->fecha_inicio= $request->fecha_inicio;
         $poliza->fecha_vencimiento= $request->fecha_vencimiento;
+        $poliza->monto_prima= $request->monto_prima;
+
         $poliza->estado= $request->estado;
 
         $poliza->save();
@@ -59,7 +61,11 @@ class PolizaController extends Controller
      */
     public function show($id)
     {
-        //
+        
+            $poliza= Poliza::findOrFail($id);
+            return $poliza;
+    
+    
     }
 
     /**
@@ -80,10 +86,10 @@ class PolizaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        //Actualiza las polizas
-        $poliza= Poliza::findOrFail($request->id);
+        // Actualiza la poliza
+        $poliza= Poliza::findOrFail($id);
         $poliza->id_usuario= $request->id_usuario;
         $poliza->num_poliza= $request->num_poliza;
         $poliza->fecha_inicio= $request->fecha_inicio;
