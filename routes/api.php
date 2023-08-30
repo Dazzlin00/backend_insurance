@@ -3,7 +3,7 @@
 use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\{LoginController, RegisterController, UserController, PolizaController};
+use App\Http\Controllers\Api\{LoginController, RegisterController, UserController, PolizaController, Tipo_SiniestroController};
 use App\Http\Resources\UserResource;
 
 /*
@@ -50,6 +50,18 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
   Route::delete('polizas/{id}', [PolizaController::class, 'destroy'])->middleware(('can:policies.delete'))->name('policies.delete'); //Elimina una poliza
 
+  //RUTAS PARA TIPOS DE SINIESTROS
+  Route::get('tipos-siniestros', [Tipo_SiniestroController::class, 'index'])->middleware(('can:sinister.list'))->name('sinister.list');
+  Route::get('tipos-siniestros/{id}', [Tipo_SiniestroController::class, 'show'])->middleware(('can:sinister.view'))->name('sinister.view');
+  Route::post('tipos-siniestros', [Tipo_SiniestroController::class, 'store'])->middleware(('can:sinister.create'))->name('sinister.create');
+  Route::put('tipos-siniestros/{id}', [Tipo_SiniestroController::class, 'update'])->middleware(('can:sinister.update'))->name('sinister.update');
+  Route::delete('tipos-siniestros/{id}', [Tipo_SiniestroController::class, 'destroy'])->middleware(('can:sinister.delete'))->name('sinister.delete');
+  //RUTAS PARA TIPOS DE SINIESTROS
 
+  //RUTAS PARA PERMISOS !!!ADMIN!!!
+  Route::get('permissions', [Tipo_Siniestro::class, 'index'])->middleware(('can:users.permissions'))->name('users.permissions');
+  Route::get('permissions/{id}', [Tipo_Siniestro::class, 'show'])->middleware(('can:permissions.view'))->name('permissions.view');
+  Route::put('permissions/{user_id}', [Tipo_Siniestro::class, 'update'])->middleware(('can:permissions.update'))->name('permissions.update');
+  //RUTAS PARA PERMISOS !!!ADMIN!!!
 
 });

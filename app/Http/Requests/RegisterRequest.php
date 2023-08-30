@@ -25,9 +25,9 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required',
+            'name' => 'required',
             'email' => 'required|email|unique:users,email',
-              'password'=>'required|confirmed'
+            'password' => 'required|confirmed',
         ];
     }
     public function failedValidation(Validator $validator)
