@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\User;
+//use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -43,7 +45,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $user = User::create([
+            'name' => $request->name,
+            'numid' => $request->numid,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ]);
+
+        if($request->role)
+            $user_role= Role::where(['name' => $request->role ])->first();
+
+        if($user_role){
+            $user->assignRole($user_role);
+        }
     }
 
     /**
@@ -54,7 +71,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return $user;
     }
 
     /**
@@ -77,7 +95,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->numid = $request->numid;
+        $user->address = $request->address;
+        $user->phone = $request->phone;
+        $user->email = $request->email;
+        $user->password = $request->password;
+
+        $user->save();
+
+        return $user;
     }
 
     /**
@@ -86,8 +114,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $user = User::destroy($request->id);
+        return $user;
     }
 }

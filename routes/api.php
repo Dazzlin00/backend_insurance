@@ -58,10 +58,22 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::delete('tipos-siniestros/{id}', [Tipo_SiniestroController::class, 'destroy'])->middleware(('can:sinister.delete'))->name('sinister.delete');
   //RUTAS PARA TIPOS DE SINIESTROS
 
-  //RUTAS PARA PERMISOS !!!ADMIN!!!
+  //RUTAS -- !!!ADMIN!!!
+  
+  //USUARIOS
+  //Route::get('users', [UserController::class, 'index'])->middleware(('can:users.list'))->name('users.list');
+  Route::get('users/{id}', [UserController::class, 'show'])->middleware(('can:users.view'))->name('users.view');
+  Route::post('users', [UserController::class, 'store'])->middleware(('can:users.create'))->name('users.create');
+  Route::put('users/{id}', [UserController::class, 'update'])->middleware(('can:users.update'))->name('users.update');
+  Route::delete('users/{id}', [UserController::class, 'destroy'])->middleware(('can:users.delete'))->name('users.delete');
+  //USUARIOS
+
+  //PERMISOS
   Route::get('permissions', [Tipo_Siniestro::class, 'index'])->middleware(('can:users.permissions'))->name('users.permissions');
   Route::get('permissions/{id}', [Tipo_Siniestro::class, 'show'])->middleware(('can:permissions.view'))->name('permissions.view');
   Route::put('permissions/{user_id}', [Tipo_Siniestro::class, 'update'])->middleware(('can:permissions.update'))->name('permissions.update');
-  //RUTAS PARA PERMISOS !!!ADMIN!!!
+  //PERMISOS
+
+  //RUTAS -- !!!ADMIN!!!
 
 });
