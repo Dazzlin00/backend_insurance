@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('num_poliza');
             $table->date('fecha_inicio');
             $table->date('fecha_vencimiento');
+            $table->decimal('cobertura', 10, 2);
             $table->decimal('monto_prima', 10, 2);
             $table->string('estado');
            

@@ -21,7 +21,7 @@ class UserController extends Controller
         if (!Auth::user()->can('users.list', User::class)) {
             abort(403, 'No tienes permiso para acceder a los usuarios.');
         }
-    
+
         return $users;
     }
 
@@ -43,7 +43,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $users = new User();
+        $users->name = $request->name;
+        $users->email = $request->email;
+        $users->numid = $request->numid;
+        $users->address = $request->address;
+        $users->phone = $request->phone;
+        $users->password = $request->password;
+
+        $users->save();
+
     }
 
     /**
@@ -54,7 +63,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $users = User::findOrFail($id);
+        return $users;
     }
 
     /**
@@ -77,7 +87,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Actualiza el usuario
+        $users = User::findOrFail($id);
+        $users->name = $request->name;
+        $users->email = $request->email;
+        $users->numid = $request->numid;
+        $users->address = $request->address;
+        $users->phone = $request->phone;
+        $users->password = $request->password;
+
+        $users->save();
+        return $users;
     }
 
     /**
@@ -86,8 +106,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        //Elimina
+        $users= User::destroy($request->id);
+        return $users;
     }
 }

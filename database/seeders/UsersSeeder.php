@@ -30,8 +30,8 @@ class UsersSeeder extends Seeder
         $policies_create = Permission::create(['name' => 'policies.create']); // CREAR POLIZA
         $policies_update = Permission::create(['name' => 'policies.update']); //ACTUALIZAR
         $policies_delete = Permission::create(['name' => 'policies.delete']); //ELIMINAR
-        $policies_request = Permission::create(['name' => 'policies.request']); //SOLICITAR
-
+       
+       
         //SINIESTROS
         $sinister = Permission::create(['name' => 'sinister.list']); //LISTA
         $sinister_report = Permission::create(['name' => 'sinister.report']); //REPORTAR
@@ -65,8 +65,7 @@ class UsersSeeder extends Seeder
             $policies_create,
             $policies_update,
             $policies_delete,
-
-
+          
             //SINIESTROS
             $sinister,
             $sinister_report,
@@ -110,7 +109,7 @@ class UsersSeeder extends Seeder
             $policies_create,
             $policies_update,
             $policies_delete,
-
+          
 
             //SINIESTROS
             $sinister,
@@ -148,7 +147,7 @@ class UsersSeeder extends Seeder
 
 
            
-            $policies_request,
+            $policies_create,
             $policies,
             $clains_report,
             $clains_view,
@@ -158,7 +157,7 @@ class UsersSeeder extends Seeder
 
 
           
-            $policies_request,
+            $policies_create,
             $policies,
             $clains_report,
             $clains_view,
@@ -195,7 +194,7 @@ class UsersSeeder extends Seeder
             $policies_create,
             $policies_update,
             $policies_delete,
-
+           
 
             //SINIESTROS
             $sinister,
@@ -230,7 +229,7 @@ class UsersSeeder extends Seeder
             $policies_create,
             $policies_update,
             $policies_delete,
-
+          
 
             //SINIESTROS
             $sinister,

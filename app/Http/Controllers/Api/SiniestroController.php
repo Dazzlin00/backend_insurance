@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Siniestro;
 use Illuminate\Http\Request;
 
 class SiniestroController extends Controller
@@ -14,7 +15,10 @@ class SiniestroController extends Controller
      */
     public function index()
     {
-        //
+       //MUESTRA TODOS LOS REGISTROS
+
+       $Siniestro = Siniestro::all();
+       return $Siniestro;
     }
 
     /**
@@ -35,7 +39,14 @@ class SiniestroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Siniestro= new Siniestro();
+        $Siniestro->id_tipo_siniestro= $request->id_tipo_siniestro;
+        $Siniestro->numero_siniestro= $request->numero_siniestro;
+        $Siniestro->fecha_reporte= $request->fecha_reporte;
+        $Siniestro->descripcion= $request->descripcion;
+        $Siniestro->estado= $request->estado;
+
+        $Siniestro->save();
     }
 
     /**
@@ -46,7 +57,8 @@ class SiniestroController extends Controller
      */
     public function show($id)
     {
-        //
+        $Siniestro= Siniestro::findOrFail($id);
+        return $Siniestro;
     }
 
     /**
@@ -69,7 +81,16 @@ class SiniestroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Actualiza 
+        $Siniestro= Siniestro::findOrFail($id);
+        $Siniestro->id_tipo_siniestro= $request->id_tipo_siniestro;
+        $Siniestro->numero_siniestro= $request->numero_siniestro;
+        $Siniestro->fecha_reporte= $request->fecha_reporte;
+        $Siniestro->descripcion= $request->descripcion;
+        $Siniestro->estado= $request->estado;
+
+        $Siniestro->save();
+        return $Siniestro;
     }
 
     /**
@@ -78,8 +99,10 @@ class SiniestroController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+         //Elimina
+         $Siniestro= Siniestro::destroy($request->id);
+         return $Siniestro;
     }
 }

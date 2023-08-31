@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Reclamo;
 use Illuminate\Http\Request;
+use App\Models\TipoPoliza;
 
-class ReclamoController extends Controller
+class TipoPolizaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,10 +15,8 @@ class ReclamoController extends Controller
      */
     public function index()
     {
-        //MUESTRA TODOS LOS RECLAMOS
-
-        $Reclamo = Reclamo::all();
-        return $Reclamo;
+        $TipoPoliza = TipoPoliza::all();
+        return $TipoPoliza;
     }
 
     /**
@@ -39,13 +37,10 @@ class ReclamoController extends Controller
      */
     public function store(Request $request)
     {
-        $Reclamo= new Reclamo();
-        $Reclamo->numero_reclamo= $request->numero_reclamo;
-        $Reclamo->fecha_reclamo= $request->fecha_reclamo;
-        $Reclamo->descripcion= $request->descripcion;
-       
+        $TipoPoliza= new TipoPoliza();
+        $TipoPoliza->descripcion= $request->descripcion;
+        $TipoPoliza->save();
 
-        $Reclamo->save();
     }
 
     /**
@@ -56,8 +51,8 @@ class ReclamoController extends Controller
      */
     public function show($id)
     {
-        $Reclamo= Reclamo::findOrFail($id);
-        return $Reclamo;
+         $TipoPoliza= TipoPoliza::findOrFail($id);
+        return $TipoPoliza;
     }
 
     /**
@@ -80,15 +75,12 @@ class ReclamoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Actualiza la poliza
-        $Reclamo= Reclamo::findOrFail($id);
-        $Reclamo->numero_reclamo= $request->numero_reclamo;
-        $Reclamo->fecha_reclamo= $request->fecha_reclamo;
-        $Reclamo->descripcion= $request->descripcion;
-       
-
-        $Reclamo->save();
-        return $Reclamo;
+         // Actualiza la poliza
+         $TipoPoliza= TipoPoliza::findOrFail($id);
+         $TipoPoliza->descripcion= $request->descripcion;
+         
+         $TipoPoliza->save();
+         return $TipoPoliza;
     }
 
     /**
@@ -99,8 +91,9 @@ class ReclamoController extends Controller
      */
     public function destroy(Request $request)
     {
-        //Elimina 
-        $Reclamo= Reclamo::destroy($request->id);
-        return $Reclamo;
+        $TipoPoliza= TipoPoliza::destroy($request->id);
+        return $TipoPoliza;
     }
 }
+
+

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cobertura;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Poliza;
 
@@ -31,6 +33,9 @@ class PolizaController extends Controller
         //
     }
 
+
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -39,18 +44,30 @@ class PolizaController extends Controller
      */
     public function store(Request $request)
     {
-        $poliza= new Poliza();
-        $poliza->id_usuario= $request->id_usuario;
-        $poliza->num_poliza= $request->num_poliza;
-        $poliza->fecha_inicio= $request->fecha_inicio;
-        $poliza->fecha_vencimiento= $request->fecha_vencimiento;
-        $poliza->monto_prima= $request->monto_prima;
 
-        $poliza->estado= $request->estado;
+
+
+        // Obtener el período de cobertura
+        $periodo = Carbon::parse($request->fecha_inicio)->diffInDays($request->fecha_vencimiento);
+
+
+
+        $tasa_base=$request->cobertura*1;
+        $poliza = new Poliza();
+        $poliza->id_usuario = $request->id_usuario;
+
+        $cantidad_digitos = 10;
+        $poliza->num_poliza = random_int(pow(10, $cantidad_digitos - 1), pow(10, $cantidad_digitos) - 1);
+        $poliza->fecha_inicio = $request->fecha_inicio;
+        $poliza->fecha_vencimiento = $request->fecha_vencimiento;
+        $poliza->cobertura = $request->cobertura;
+        $poliza->monto_prima = $poliza->cobertura * $periodo*$tasa_base;
+
+        $poliza->estado = 'Activa';
 
         $poliza->save();
 
-    
+
     }
 
     /**
@@ -61,11 +78,11 @@ class PolizaController extends Controller
      */
     public function show($id)
     {
-        
-            $poliza= Poliza::findOrFail($id);
-            return $poliza;
-    
-    
+
+        $poliza = Poliza::findOrFail($id);
+        return $poliza;
+
+
     }
 
     /**
@@ -89,12 +106,12 @@ class PolizaController extends Controller
     public function update(Request $request, $id)
     {
         // Actualiza la poliza
-        $poliza= Poliza::findOrFail($id);
-        $poliza->id_usuario= $request->id_usuario;
-        $poliza->num_poliza= $request->num_poliza;
-        $poliza->fecha_inicio= $request->fecha_inicio;
-        $poliza->fecha_vencimiento= $request->fecha_vencimiento;
-        $poliza->estado= $request->estado;
+        $poliza = Poliza::findOrFail($id);
+        $poliza->id_usuario = $request->id_usuario;
+        $poliza->num_poliza = $request->num_poliza;
+        $poliza->fecha_inicio = $request->fecha_inicio;
+        $poliza->fecha_vencimiento = $request->fecha_vencimiento;
+        $poliza->estado = $request->estado;
         $poliza->save();
         return $poliza;
     }
@@ -108,7 +125,7 @@ class PolizaController extends Controller
     public function destroy(Request $request)
     {
         //Elimina una poliza
-        $poliza= Poliza::destroy($request->id);
+        $poliza = Poliza::destroy($request->id);
         return $poliza;
     }
 }

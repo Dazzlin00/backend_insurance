@@ -9,5 +9,5 @@ class Poliza extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable= ['id_usuario','num_poliza','fecha_inicio','fecha_vencimiento','monto_prima','estado'];
+    protected $fillable= ['id_usuario','num_poliza','fecha_inicio','fecha_vencimiento','cobertura','monto_prima','estado'];
 }
