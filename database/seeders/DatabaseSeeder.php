@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersSeeder::class);
 
         $this->call(CoberturaSeeder::class);
+        $this->call(TipoPolizaSeeder::class);
         $this->call(PolizaSeeder::class);
         $this->call(TipoSiniestroSeeder::class);
         $this->call(ReclamoSeeder::class);

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Poliza;
 use App\Models\Siniestro;
+use App\Models\Siniestro_Usuario;
+use App\Models\TipoSiniestro;
+use Auth;
 use Illuminate\Http\Request;
 
 class SiniestroController extends Controller
@@ -15,12 +19,34 @@ class SiniestroController extends Controller
      */
     public function index()
     {
-       //MUESTRA TODOS LOS REGISTROS
-
-       $Siniestro = Siniestro::all();
-       return $Siniestro;
+        //MUESTRA TODOS LOS REGISTROS
+    
+        $siniestros = Siniestro::all();
+    
+        //OBTENEMOS LA DESCRIPCION DEL TIPO DE SINIESTRO
+    
+        foreach ($siniestros as $siniestro) {
+            $tipo_siniestro = TipoSiniestro::where('id', $siniestro->id_tipo_siniestro)->first();
+            $siniestro->descripcion_tipo_siniestro = $tipo_siniestro->descripcion;
+        }
+    
+        return $siniestros;
     }
+    
+    public function VerMisSiniestros()
+    {
+      // Obtenemos el usuario autenticado
+    $user = Auth::user();
 
+    // Consultamos la tabla `siniestro_usuario` para obtener los ID de los siniestros del usuario
+    $siniestrosIds = Siniestro_Usuario::where('id_usuario', $user->id)->pluck('id_siniestro');
+
+    // Consultamos la tabla `siniestros` para obtener los siniestros del usuario
+    $siniestros = Siniestro::whereIn('id', $siniestrosIds)->get();
+
+    // Devolvemos los siniestros
+    return $siniestros;
+    }
     /**
      * Show the form for creating a new resource.
      *

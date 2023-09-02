@@ -7,6 +7,7 @@ use App\Models\Cobertura;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Poliza;
+use App\Models\User;
 
 class PolizaController extends Controller
 {
@@ -16,10 +17,29 @@ class PolizaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //MUESTRA TODAS LAS POLIZAS
+{
+    //MUESTRA TODAS LAS POLIZAS
 
-        $poliza = Poliza::all();
+    $polizas = Poliza::all();
+
+    //OBTENEMOS EL NOMBRE DEL USUARIO
+
+    foreach ($polizas as $poliza) {
+        $usuario = User::where('id', $poliza->id_usuario)->first();
+        $poliza->name = $usuario->name;
+    }
+
+    return $polizas;
+}
+
+    public function VerMisPolizas()
+    {
+        //$poliza = Poliza::where('id_usuario', auth()->user()->id)->get();
+        //return $poliza;
+
+        $poliza = Poliza::join('tipo_polizas', 'tipo_polizas.id', '=', 'polizas.tipo_poliza')
+            ->where('id_usuario', auth()->user()->id)
+            ->get();
         return $poliza;
     }
 
@@ -52,16 +72,18 @@ class PolizaController extends Controller
 
 
 
-        $tasa_base=$request->cobertura*1;
+        $tasa_base = $request->cobertura * 1;
         $poliza = new Poliza();
         $poliza->id_usuario = $request->id_usuario;
 
         $cantidad_digitos = 10;
         $poliza->num_poliza = random_int(pow(10, $cantidad_digitos - 1), pow(10, $cantidad_digitos) - 1);
+
+        $poliza->tipo_poliza = $request->tipo_poliza;
         $poliza->fecha_inicio = $request->fecha_inicio;
         $poliza->fecha_vencimiento = $request->fecha_vencimiento;
         $poliza->cobertura = $request->cobertura;
-        $poliza->monto_prima = $poliza->cobertura * $periodo*$tasa_base;
+        $poliza->monto_prima = $poliza->cobertura * $periodo * $tasa_base;
 
         $poliza->estado = 'Activa';
 

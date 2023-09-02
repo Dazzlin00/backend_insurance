@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_usuario');
             $table->string('num_poliza');
+            $table->string('tipo_poliza');
+            
             $table->date('fecha_inicio');
             $table->date('fecha_vencimiento');
             $table->decimal('cobertura', 10, 2);

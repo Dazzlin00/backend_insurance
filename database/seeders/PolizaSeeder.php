@@ -18,6 +18,7 @@ class PolizaSeeder extends Seeder
         $data= [ 
             'id_usuario'=>'2',
             'num_poliza'=>'1234567890',
+            'tipo_poliza'=>'1',
             'fecha_inicio'=>'2023-08-26',
             'fecha_vencimiento'=>'2024-08-25',
             'cobertura'=>'1000000',

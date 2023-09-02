@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cobertura;
 use Illuminate\Http\Request;
 
 class CoberturaController extends Controller
@@ -14,7 +15,10 @@ class CoberturaController extends Controller
      */
     public function index()
     {
-        //
+        //MUESTRA TODOS LOS REGISTROS
+
+        $Cobertura = Cobertura::all();
+        return $Cobertura;
     }
 
     /**
@@ -35,7 +39,12 @@ class CoberturaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Cobertura = new Cobertura();
+        $Cobertura->descripcion = $request->descripcion;
+        $Cobertura->monto_cobertura = $request->monto_cobertura;
+
+
+        $Cobertura->save();
     }
 
     /**
@@ -46,7 +55,8 @@ class CoberturaController extends Controller
      */
     public function show($id)
     {
-        //
+        $Cobertura = Cobertura::findOrFail($id);
+        return $Cobertura;
     }
 
     /**
@@ -69,7 +79,15 @@ class CoberturaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Actualiza 
+        $Cobertura = Cobertura::findOrFail($id);
+        $Cobertura->descripcion = $request->descripcion;
+        $Cobertura->monto_cobertura = $request->monto_cobertura;
+
+
+
+        $Cobertura->save();
+        return $Cobertura;
     }
 
     /**
@@ -78,8 +96,10 @@ class CoberturaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+         //Elimina
+         $Cobertura= Cobertura::destroy($request->id);
+         return $Cobertura;
     }
 }

@@ -20,6 +20,6 @@ class SiniestroUsuarioSeeder extends Seeder
             'id_usuario'=>'2',
             
         ];
-        DB::table('siniestro_usuarios')->insert($data);
+        DB::table('siniestro__usuarios')->insert($data);
     }
 }

@@ -30,8 +30,9 @@ class UsersSeeder extends Seeder
         $policies_create = Permission::create(['name' => 'policies.create']); // CREAR POLIZA
         $policies_update = Permission::create(['name' => 'policies.update']); //ACTUALIZAR
         $policies_delete = Permission::create(['name' => 'policies.delete']); //ELIMINAR
-       
-       
+
+        $policies_me = Permission::create(['name' => 'users.policies.me']); //POLIZAS por usuario
+
         //SINIESTROS
         $sinister = Permission::create(['name' => 'sinister.list']); //LISTA
         $sinister_report = Permission::create(['name' => 'sinister.report']); //REPORTAR
@@ -39,7 +40,8 @@ class UsersSeeder extends Seeder
         $sinister_create = Permission::create(['name' => 'sinister.create']); // CREAR POLIZA
         $sinister_update = Permission::create(['name' => 'sinister.update']); //ACTUALIZAR
         $sinister_delete = Permission::create(['name' => 'sinister.delete']); //ELIMINAR
-
+        
+        $sinister_me = Permission::create(['name' => 'sinister.me']); //Ver mis siniestros
 
         //RECLAMOS
 
@@ -49,6 +51,16 @@ class UsersSeeder extends Seeder
         $clains_create = Permission::create(['name' => 'clains.create']); // CREAR 
         $clains_update = Permission::create(['name' => 'clains.update']); //ACTUALIZAR
         $clains_delete = Permission::create(['name' => 'clains.delete']); //ELIMINAR
+
+        $clains_me = Permission::create(['name' => 'clains.me']); //Ver mis reclamos
+
+        //coverage
+
+        $coverage = Permission::create(['name' => 'coverage.list']); //LISTA
+        $coverage_view = Permission::create(['name' => 'coverage.view']); // VER 
+        $coverage_create = Permission::create(['name' => 'coverage.create']); // CREAR 
+        $coverage_update = Permission::create(['name' => 'coverage.update']); //ACTUALIZAR
+        $coverage_delete = Permission::create(['name' => 'coverage.delete']); //ELIMINAR
 
         //ADMIN
         $admin_role = Role::create(['name' => 'admin']);
@@ -65,7 +77,13 @@ class UsersSeeder extends Seeder
             $policies_create,
             $policies_update,
             $policies_delete,
-          
+            $policies_me,
+            //COBERTURAS
+            $coverage,
+            $coverage_view,
+            $coverage_create,
+            $coverage_update,
+            $coverage_delete,
             //SINIESTROS
             $sinister,
             $sinister_report,
@@ -73,10 +91,10 @@ class UsersSeeder extends Seeder
             $sinister_create,
             $sinister_update,
             $sinister_delete,
-
-
+            $sinister_me,
+           
             //RECLAMOS
-
+            $clains_me,
             $clains,
             $clains_report,
             $clains_view,
@@ -109,7 +127,13 @@ class UsersSeeder extends Seeder
             $policies_create,
             $policies_update,
             $policies_delete,
-          
+            $policies_me,
+            //COBERTURAS
+            $coverage,
+            $coverage_view,
+            $coverage_create,
+            $coverage_update,
+            $coverage_delete,
 
             //SINIESTROS
             $sinister,
@@ -118,9 +142,10 @@ class UsersSeeder extends Seeder
             $sinister_create,
             $sinister_update,
             $sinister_delete,
-
-
+            $sinister_me,
+           
             //RECLAMOS
+            $clains_me,
 
             $clains,
             $clains_report,
@@ -146,22 +171,30 @@ class UsersSeeder extends Seeder
         $user->givePermissionTo([
 
 
-           
+
             $policies_create,
-            $policies,
+            
             $clains_report,
             $clains_view,
-
+            $policies_me,
+            $sinister_me,
+           
+           
+            $clains_me,
         ]);
         $user_role->givePermissionTo([
 
 
-          
+
             $policies_create,
-            $policies,
+           
             $clains_report,
             $clains_view,
-
+            $policies_me,
+            $sinister_me,
+           
+            
+            $clains_me,
         ]);
 
         //AGENT
@@ -194,7 +227,8 @@ class UsersSeeder extends Seeder
             $policies_create,
             $policies_update,
             $policies_delete,
-           
+            $policies_me,
+
 
             //SINIESTROS
             $sinister,
@@ -202,9 +236,17 @@ class UsersSeeder extends Seeder
             $sinister_view,
             $sinister_update,
 
+            //COBERTURAS
+            $coverage,
+            $coverage_view,
+            $coverage_create,
+            $coverage_update,
+            $coverage_delete,
 
-
+            $sinister_me,
+           
             //RECLAMOS
+            $clains_me,
 
             $clains,
 
@@ -229,7 +271,7 @@ class UsersSeeder extends Seeder
             $policies_create,
             $policies_update,
             $policies_delete,
-          
+            $policies_me,
 
             //SINIESTROS
             $sinister,
@@ -238,12 +280,20 @@ class UsersSeeder extends Seeder
             $sinister_update,
 
 
-
+            $sinister_me,
+           
             //RECLAMOS
+            $clains_me,
 
             $clains,
             $clains_view,
             $clains_update,
+            //COBERTURAS
+            $coverage,
+            $coverage_view,
+            $coverage_create,
+            $coverage_update,
+            $coverage_delete,
 
         ]);
 
