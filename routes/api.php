@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\ReclamoController;
 use App\Models\Solicitud;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\{LoginController, RegisterController, UserController, PolizaController,SiniestroController, Tipo_SiniestroController};
+use App\Http\Controllers\Api\{LoginController, RegisterController, UserController, PolizaController,SiniestroController, Tipo_SiniestroController, MensajeController};
 use App\Http\Resources\UserResource;
 
 /*
@@ -23,6 +23,7 @@ use App\Http\Resources\UserResource;
 //INICIO Y REGITRO DE USUARIOS
 Route::post('login', [LoginController::class, 'login']);
 Route::post('register', [RegisterController::class, 'register']);
+Route::post('mensajes', [MensajeController::class, 'store']);
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -65,6 +66,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::delete('tipos-siniestros/{id}', [Tipo_SiniestroController::class, 'destroy'])->middleware(('can:sinister.delete'))->name('sinister.delete');
   //RUTAS PARA TIPOS DE SINIESTROS
 
+  //RUTAS DE MENSAJES
+  Route::get('mensajes', [MensajeController::class, 'index'])->middleware(('can:clains.list'))->name('clains.list');
+  Route::get('mensajes/{id}', [MensajeController::class, 'show'])->middleware(('can:clains.view'))->name('clains.view');
+  Route::put('mensajes/{id}', [MensajeController::class, 'update'])->middleware(('can:clains.update'))->name('clains.update');
+  Route::delete('mensajes/{id}', [MensajeController::class, 'destroy'])->middleware(('can:clains.delete'))->name('clains.delete');
+  //RUTAS DE MENSAJES
+
   //RUTAS -- !!!ADMIN!!!
 
   //USUARIOS
@@ -82,8 +90,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   //PERMISOS
 
   //RUTAS -- !!!ADMIN!!!
-
-
 
   //RUTAS PARA LAS COBERTURAS
   Route::get('coberturas', [CoberturaController::class, 'index'])->middleware(('can:coverage.list'))->name('coverage.list');

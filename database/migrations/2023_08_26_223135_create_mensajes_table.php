@@ -14,15 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('mensajes', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('id_reclamo');
-           
+            $table->id();     
             $table->date('fecha');
+            $table->string('email');
             $table->string('mensaje');
-            $table->integer('orden');
-
-            $table->foreign('id_reclamo')->references('id')  ->on('reclamos');
-
         });
     }
 

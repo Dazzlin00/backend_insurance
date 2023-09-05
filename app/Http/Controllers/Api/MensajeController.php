@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Mensaje;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class MensajeController extends Controller
 {
@@ -14,7 +16,8 @@ class MensajeController extends Controller
      */
     public function index()
     {
-        //
+        $mensaje = Mensaje::all();
+        return $mensaje;
     }
 
     /**
@@ -24,7 +27,7 @@ class MensajeController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +38,13 @@ class MensajeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Mensaje = new Mensaje();
+        $Mensaje->fecha = Carbon::now();
+        $Mensaje->email = $request->email;
+        $Mensaje->mensaje = $request->mensaje;
+       
+
+        $Mensaje->save();
     }
 
     /**
@@ -46,7 +55,8 @@ class MensajeController extends Controller
      */
     public function show($id)
     {
-        //
+        $Mensaje = Mensaje::findOrFail($id);
+        return $Mensaje;
     }
 
     /**
@@ -69,7 +79,14 @@ class MensajeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $Mensaje = Mensaje::findOrFail($id);
+        $Mensaje->fecha = $request->fecha;
+        $Mensaje->email = $request->email;
+        $Mensaje->mensaje = $request->mensaje;
+       
+
+        $Mensaje->save();
+        return $Mensaje;
     }
 
     /**
@@ -78,8 +95,9 @@ class MensajeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $Mensaje = Mensaje::destroy($request->id);
+        return $Mensaje;
     }
 }

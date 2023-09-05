@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Mensaje extends Model
 {
     use HasFactory;
-            protected $fillable= ['id_reclamo','fecha','mensaje','orden'];
+            protected $fillable= ['fecha', 'email', 'mensaje'];
+            public $timestamps = false;
 
 }
