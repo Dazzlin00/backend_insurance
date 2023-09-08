@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cobertura;
+use App\Models\TipoPoliza;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Poliza;
@@ -17,20 +18,22 @@ class PolizaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-{
-    //MUESTRA TODAS LAS POLIZAS
+    {
+        //MUESTRA TODAS LAS POLIZAS
 
-    $polizas = Poliza::all();
+        $polizas = Poliza::all();
 
-    //OBTENEMOS EL NOMBRE DEL USUARIO
+        //OBTENEMOS LA DESCRIPCION DE TIPO POLIZA
 
-    foreach ($polizas as $poliza) {
-        $usuario = User::where('id', $poliza->id_usuario)->first();
-        $poliza->name = $usuario->name;
+        foreach ($polizas as $poliza) {
+            $tipoPoliza = TipoPoliza::where('id', $poliza->tipo_poliza)->first();
+            $poliza->descripcion = $tipoPoliza->descripcion;
+            $usuario = User::where('id', $poliza->id_usuario)->first();
+            $poliza->name = $usuario->name;
+        }
+
+        return $polizas;
     }
-
-    return $polizas;
-}
 
     public function VerMisPolizas()
     {

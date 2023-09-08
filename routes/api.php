@@ -3,7 +3,9 @@
 use App\Http\Controllers\Api\CoberturaController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\ReclamoController;
+use App\Http\Controllers\Api\TipoPolizaController;
 use App\Models\Solicitud;
+use App\Models\TipoPoliza;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\{LoginController, RegisterController, UserController, PolizaController,SiniestroController, Tipo_SiniestroController, MensajeController};
@@ -27,6 +29,9 @@ Route::post('mensajes', [MensajeController::class, 'store']);
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+  
+  Route::get('search', [UserController::class, 'search'])->middleware(('can:users.view'))->name('users.view');
+
   //MUESTRA LOS DATOS DEL USUARIO AL IGUAL QUE EL LOGIN
   Route::get('userprofile', [LoginController::class, 'userprofile']);
   //CIERRA LA SESION ELIMINANDO EL TOKEN
@@ -35,7 +40,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   //RUTAS PARA USUARIOS
 
   Route::get('users', [UserController::class, 'index'])->middleware(('can:users.list'))->name('users.list');
-  Route::get('users/{id}', [UserController::class, 'show'])->middleware(('can:users.view'))->name('users.view'); //ver
+  //Route::get('users/{id}', [UserController::class, 'show'])->middleware(('can:users.view'))->name('users.view'); //ver
   Route::post('users', [UserController::class, 'store'])->middleware(('can:users.create'))->name('users.create'); //crea 
   Route::put('users/{id}', [UserController::class, 'update'])->middleware(('can:users.update'))->name('users.update'); //Actualiza 
   Route::delete('users/{id}', [UserController::class, 'destroy'])->middleware(('can:users.delete'))->name('users.delete'); //Elimina 
@@ -46,6 +51,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::post('polizas', [PolizaController::class, 'store'])->middleware(('can:policies.create'))->name('policies.create'); //crea una poliza
   Route::put('polizas/{id}', [PolizaController::class, 'update'])->middleware(('can:policies.update'))->name('policies.update'); //Actualiza una poliza
   Route::delete('polizas/{id}', [PolizaController::class, 'destroy'])->middleware(('can:policies.delete'))->name('policies.delete'); //Elimina una poliza
+  Route::get('tipopolizas', [TipoPolizaController::class, 'index'])->middleware(('can:policies.view'))->name('policies.view'); 
 
  //RUTA QUE MUESTRA LAS POLIZAS DEL USUARIO
   Route::get('poliza', [PolizaController::class, 'VerMisPolizas'])->middleware(('can:users.policies.me'))->name('users.policies.me'); //muestra todos mis registros

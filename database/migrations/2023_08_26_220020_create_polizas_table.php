@@ -21,7 +21,7 @@ return new class extends Migration
             
             $table->date('fecha_inicio');
             $table->date('fecha_vencimiento');
-            $table->decimal('cobertura', 10, 2);
+            $table->string('cobertura');
             $table->decimal('monto_prima', 10, 2);
             $table->string('estado');
            

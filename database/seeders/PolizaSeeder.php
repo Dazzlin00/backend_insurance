@@ -21,7 +21,7 @@ class PolizaSeeder extends Seeder
             'tipo_poliza'=>'1',
             'fecha_inicio'=>'2023-08-26',
             'fecha_vencimiento'=>'2024-08-25',
-            'cobertura'=>'1000000',
+            'cobertura'=>'1',
             'monto_prima'=>'10000',
             'estado'=>'activa',
         ];

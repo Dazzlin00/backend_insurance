@@ -26,6 +26,18 @@ class UserController extends Controller
 
         return $users;
     }
+    public function search(Request $request)
+    {
+        $numid = $request->input('numid');
+
+        $user = User::where('numid', '=', $numid)->first();
+
+        if ($user) {
+            return response()->json($user);
+        } else {
+            return response()->json(['error' => 'No se encontró el usuario'], 404);
+        }
+    }
 
     /**
      * Show the form for creating a new resource.
