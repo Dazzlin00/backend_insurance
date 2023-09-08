@@ -21,6 +21,18 @@ class ReclamoController extends Controller
         return $Reclamo;
     }
 
+    public function VerMisReclamos()
+    {
+        $poliza = Reclamo::join('polizas', function ($join){
+             $join->where('polizas.id_usuario', '=', auth()->user()->id);
+            })
+            ->join('reclamo_polizas', 'reclamo_polizas.id_poliza', '=', 'polizas.id')
+            ->get();
+
+        return $poliza;
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

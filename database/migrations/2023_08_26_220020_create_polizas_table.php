@@ -16,16 +16,16 @@ return new class extends Migration
         Schema::create('polizas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_usuario');
-            $table->string('num_poliza');
-            $table->string('tipo_poliza');
+            $table->string('num_poliza');   //aqui no se puede usar el id de la tabla?
+            $table->string('tipo_poliza');  //tipo poliza?
             
             $table->date('fecha_inicio');
             $table->date('fecha_vencimiento');
-            $table->string('cobertura');
-            $table->decimal('monto_prima', 10, 2);
-            $table->string('estado');
+            $table->decimal('cobertura', 10, 2); //aqui no deberia estar el id de la cobertura?
+            $table->decimal('monto_prima', 10, 2)->nullable();
+            $table->string('estado')->default('Inactivo');
            
-            $table->foreign('id_usuario')->references('id')  ->on('users');
+            $table->foreign('id_usuario')->references('id')->on('users');
 
         });
     }
