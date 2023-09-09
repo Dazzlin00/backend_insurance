@@ -68,19 +68,24 @@ class PolizaController extends Controller
     public function store(Request $request)
     {
         // Obtener el período de cobertura
-        $periodo = Carbon::parse($request->fecha_inicio)->diffInDays($request->fecha_vencimiento);
+       // $periodo = Carbon::parse($request->fecha_inicio)->diffInDays($request->fecha_vencimiento);
 
-        $tasa_base = $request->cobertura * 1;
+        //$tasa_base = $request->cobertura * 1;
         $poliza = new Poliza();
-        $poliza->id_usuario = auth()->user()->id;
+       // $poliza->id_usuario = auth()->user()->id;
 
-        $cantidad_digitos = 10;
-        $poliza->num_poliza = random_int(pow(10, $cantidad_digitos - 1), pow(10, $cantidad_digitos) - 1);
+        $poliza->id_usuario =$request->id_usuario;
+
+        $poliza->num_poliza = $request->num_poliza;
 
         $poliza->tipo_poliza = $request->tipo_poliza;
         $poliza->fecha_inicio = $request->fecha_inicio;
         $poliza->fecha_vencimiento = $request->fecha_vencimiento;
         $poliza->cobertura = $request->cobertura;
+        $poliza->monto_prima = $request->monto_prima;
+        $poliza->estado ="Activa";
+
+
 
         $poliza->save();
 

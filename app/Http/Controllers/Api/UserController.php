@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 //use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class UserController extends Controller
 {
@@ -18,13 +20,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
 
-        if (!Auth::user()->can('users.list', User::class)) {
-            abort(403, 'No tienes permiso para acceder a los usuarios.');
-        }
-
-        return $users;
+        $usuarios = User::Role("user")->get();
+        
+        return $usuarios;
     }
     public function search(Request $request)
     {
@@ -64,13 +63,14 @@ class UserController extends Controller
             'address' => $request->address,
             'phone' => $request->phone,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'password' => bcrypt($request->password),
+            'registro' => Carbon::now()->format('Y-m-d'),
         ]);
 
-        if($request->role)
-            $user_role= Role::where(['name' => $request->role ])->first();
+        if ($request->role)
+            $user_role = Role::where(['name' => $request->role])->first();
 
-        if($user_role){
+        if ($user_role) {
             $user->assignRole($user_role);
         }
     }
