@@ -53,8 +53,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::delete('polizas/{id}', [PolizaController::class, 'destroy'])->middleware(('can:policies.delete'))->name('policies.delete'); //Elimina una poliza
   Route::get('tipopolizas', [TipoPolizaController::class, 'index'])->middleware(('can:policies.view'))->name('policies.view'); 
 
- //RUTA QUE MUESTRA LAS POLIZAS DEL USUARIO
-  Route::get('poliza', [PolizaController::class, 'VerMisPolizas'])->middleware(('can:users.policies.me'))->name('users.policies.me'); //muestra todos mis registros
+  //RUTA QUE MUESTRA LAS POLIZAS DEL USUARIO
+  Route::get('user-poliza', [PolizaController::class, 'VerMisPolizas'])->middleware(('can:users.policies.me'))->name('users.policies.me'); //muestra todos mis registros
+  Route::get('user-poliza/{id}', [PolizaController::class, 'VerMiPoliza'])->middleware(('can:users.policies.me'))->name('users.policies.me');
 
   //RUTAS PARA LOS SINIESTROS
   Route::get('siniestros', [SiniestroController::class, 'index'])->middleware(('can:sinister.list'))->name('sinister.list'); //muestra todos los registros
