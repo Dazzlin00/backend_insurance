@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 //use Illuminate\Foundation\Auth\User;
+use App\Models\Poliza;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,10 @@ class UserController extends Controller
         } else {
             return response()->json(['error' => 'No se encontró el usuario'], 404);
         }
+    }
+    public function SearchUserPoliza(Request $request)
+    {
+       
     }
 
     /**

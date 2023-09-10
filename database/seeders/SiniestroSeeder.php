@@ -17,8 +17,14 @@ class SiniestroSeeder extends Seeder
     {
         $data= [ 
             'id_tipo_siniestro'=>'1',
-            'numero_siniestro'=>'123456',
+            'id_poliza'=>'1',
+            'id_usuario'=>'2',
             'fecha_reporte'=>'2023-08-26',
+            'fecha_declaracion'=>'2023-08-26',
+            'estado_ocu'=>'Lara',
+            'ciudad'=>'Barquisimeto',
+            'lugar'=>'el cuji',
+
             'descripcion'=>'Un vehículo de la empresa XYZ colisionó con otro vehículo en la ciudad de Barquisimeto.',
             'estado'=>'activa',
         ];
