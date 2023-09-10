@@ -46,6 +46,18 @@ class PolizaController extends Controller
         return $poliza;
     }
 
+    public function VerMiPoliza($id)
+    {
+
+        $poliza = Poliza::join('tipo_polizas', 'tipo_polizas.id', '=', 'polizas.tipo_poliza')
+            ->join('coberturas', 'coberturas.id','=','polizas.cobertura')
+            ->join('users', 'users.id','=','polizas.id_usuario')
+            ->where('polizas.id_usuario', auth()->user()->id)
+            ->where('polizas.id', $id)
+            ->select('polizas.*', 'coberturas.monto_cobertura as cobertura', 'tipo_polizas.descripcion as tipo_poliza', 'users.numid as numid', 'users.name as username')
+            ->get();
+        return $poliza;
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -72,7 +84,6 @@ class PolizaController extends Controller
 
         //$tasa_base = $request->cobertura * 1;
         $poliza = new Poliza();
-       // $poliza->id_usuario = auth()->user()->id;
 
         $poliza->id_usuario =$request->id_usuario;
 
@@ -83,9 +94,7 @@ class PolizaController extends Controller
         $poliza->fecha_vencimiento = $request->fecha_vencimiento;
         $poliza->cobertura = $request->cobertura;
         $poliza->monto_prima = $request->monto_prima;
-        $poliza->estado ="Activa";
-
-
+        $poliza->estado = $request->estado;
 
         $poliza->save();
 
@@ -102,7 +111,6 @@ class PolizaController extends Controller
 
         $poliza = Poliza::findOrFail($id);
         return $poliza;
-
 
     }
 
