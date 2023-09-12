@@ -28,12 +28,26 @@ class PolizaController extends Controller
         foreach ($polizas as $poliza) {
             $tipoPoliza = TipoPoliza::where('id', $poliza->tipo_poliza)->first();
             $poliza->descripcion = $tipoPoliza->descripcion;
+            $cobertura = Cobertura::where('id', $poliza->cobertura)->first();
+            $poliza->descripcion_cobertura = $cobertura->descripcion;
             $usuario = User::where('id', $poliza->id_usuario)->first();
             $poliza->name = $usuario->name;
         }
 
         return $polizas;
     }
+    public function getPolizas(Request $request)
+{
+    $numid = $request->input('numid');
+
+    $polizas = Poliza::where('id_usuario', User::where('numid', $numid)->first()->id)
+        ->select('polizas.num_poliza','polizas.id as id_poliza','Coberturas.id as id_cobertura','Coberturas.descripcion as desc_cobertura' , 'users.name as nombre','users.id as id_usuario')
+        ->join('coberturas', 'polizas.cobertura', '=', 'coberturas.id')
+        ->join('users', 'polizas.id_usuario', '=', 'users.id')
+        ->get();
+
+    return $polizas;
+}
 
     public function VerMisPolizas()
     {
@@ -94,7 +108,8 @@ class PolizaController extends Controller
         $poliza->fecha_vencimiento = $request->fecha_vencimiento;
         $poliza->cobertura = $request->cobertura;
         $poliza->monto_prima = $request->monto_prima;
-        $poliza->estado = $request->estado;
+       $poliza->estado = $request->estado;
+       // $poliza->estado="A" ;
 
         $poliza->save();
 

@@ -60,6 +60,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::get('user-poliza', [PolizaController::class, 'VerMisPolizas'])->middleware(('can:users.policies.me'))->name('users.policies.me'); //muestra todos mis registros
   Route::get('user-poliza/{id}', [PolizaController::class, 'VerMiPoliza'])->middleware(('can:users.policies.me'))->name('users.policies.me');
 
+
+//RUTA QUE MUESTRA SI EL USUARIO TIENE POLIZAS
+
+Route::get('poliza-user', [PolizaController::class, 'getPolizas'])->middleware(('can:policies.view'))->name('policies.view'); //ver una poliza
+
   //RUTAS PARA LOS SINIESTROS
   Route::get('siniestros', [SiniestroController::class, 'index'])->middleware(('can:sinister.list'))->name('sinister.list'); //muestra todos los registros
   Route::get('siniestros/{id}', [SiniestroController::class, 'show'])->middleware(('can:sinister.view'))->name('sinister.view'); //ver 
@@ -67,6 +72,14 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::put('siniestros/{id}', [SiniestroController::class, 'update'])->middleware(('can:sinister.update'))->name('sinister.update'); //Actualiza 
   Route::delete('siniestros/{id}', [SiniestroController::class, 'destroy'])->middleware(('can:sinister.delete'))->name('sinister.delete'); //Elimina 
   Route::get('siniestro', [SiniestroController::class, 'VerMisSiniestros'])->middleware(('can:sinister.me'))->name('sinister.me'); //muestra todos los registros
+
+  //SINIESTROS POR COBERTURA 
+  
+  Route::get('siniestros-poliza/{numero}', [SiniestroController::class, 'VerTipoSiniestroPorPoliza'])->middleware(('can:sinister.list'))->name('sinister.list'); //muestra todos los registros
+
+//RUTAS PARA LOS SINIESTROS DEL USUARIO 
+
+Route::get('siniestro/{id}', [SiniestroController::class, 'VerSiniestro'])->middleware(('can:sinister.view'))->name('sinister.view'); //ver 
 
   //RUTAS PARA TIPOS DE SINIESTROS
   Route::get('tipos-siniestros', [Tipo_SiniestroController::class, 'index'])->middleware(('can:sinister.list'))->name('sinister.list');

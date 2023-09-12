@@ -181,7 +181,7 @@ class UsersSeeder extends Seeder
             $clains_view,
             $policies_me,
             $sinister_me,
-           
+            $sinister_create,
            
             $clains_me,
         ]);
@@ -196,7 +196,7 @@ class UsersSeeder extends Seeder
             $policies_me,
             $sinister_me,
            
-            
+            $sinister_create,
             $clains_me,
         ]);
 
@@ -239,7 +239,7 @@ class UsersSeeder extends Seeder
             $sinister_report,
             $sinister_view,
             $sinister_update,
-
+            $sinister_create,
             //COBERTURAS
             $coverage,
             $coverage_view,
@@ -284,7 +284,7 @@ class UsersSeeder extends Seeder
             $sinister_view,
             $sinister_update,
 
-
+            $sinister_create,
             $sinister_me,
            
             //RECLAMOS

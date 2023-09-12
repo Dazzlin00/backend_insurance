@@ -16,8 +16,16 @@ class TipoSiniestroSeeder extends Seeder
     public function run()
     {
         $data= [ 
-            'descripcion'=>'Accidente automovilístico',
-            
+            [
+                'descripcion'=>'Accidente automovilístico'
+            ],
+           
+            [
+                'descripcion'=>'Robo'
+            ],
+            [
+                'descripcion'=>'Perdida de datos'
+            ],
         ];
         DB::table('tipo_siniestros')->insert($data);
     }

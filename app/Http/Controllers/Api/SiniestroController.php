@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cobertura_siniestro;
+use App\Models\Cobertura_tipo_Siniestro;
 use App\Models\Poliza;
 use App\Models\Siniestro;
 use App\Models\Siniestro_Usuario;
 use App\Models\TipoSiniestro;
 use App\Models\User;
 use Auth;
+use DB;
 use Illuminate\Http\Request;
 
 class SiniestroController extends Controller
@@ -31,7 +34,7 @@ class SiniestroController extends Controller
             $siniestro->descripcion_tipo_siniestro = $tipo_siniestro->descripcion;
             $cedula = User::where('id', $siniestro->id_usuario)->first();
             $siniestro->numid = $cedula->numid;
-            $poliza =Poliza::where('id', $siniestro->id_poliza)->first();
+            $poliza = Poliza::where('id', $siniestro->id_poliza)->first();
             $siniestro->num_poliza = $poliza->num_poliza;
 
         }
@@ -53,6 +56,56 @@ class SiniestroController extends Controller
         // Devolvemos los siniestros
         return $siniestros;
     }
+    public function VerSiniestro($id)
+    {
+        
+
+        $siniestro = Siniestro::where('siniestros.id', $id)
+            ->join('users', 'siniestros.id_usuario', '=', 'users.id')
+            ->join('polizas', 'siniestros.id_poliza', '=', 'polizas.id')
+            ->join('tipo_siniestros', 'siniestros.id_tipo_siniestro', '=', 'tipo_siniestros.id')
+            ->select('users.numid', 'users.name', 'polizas.num_poliza', 'tipo_siniestros.descripcion as tiposiniestrodes', 'siniestros.*')
+            ->first();
+
+        return $siniestro;
+
+
+    }
+   /* public function VerTipoSiniestroPorCobertura($descripcion)
+    {
+        
+
+        $tipoSiniestro = Cobertura_siniestro::where('coberturas.descripcion', $descripcion)
+            ->join('tipo_siniestros', 'cobertura_siniestros.id_tipo_siniestro', '=', 'tipo_siniestros.id')
+            ->join('coberturas', 'cobertura_siniestros.id_cobertura', '=', 'coberturas.id')
+            ->select('tipo_siniestros.descripcion')
+            ->first();
+
+        return $tipoSiniestro;
+
+
+    }*/
+
+    public function VerTipoSiniestroPorPoliza($Poliza)
+{
+    /*return DB::table('tipo_siniestros')
+        ->join('cobertura_siniestros', 'tipo_siniestros.id', '=', 'cobertura_siniestros.id_tipo_siniestro')
+        ->join('coberturas', 'cobertura_siniestros.id_cobertura', '=', 'coberturas.id')
+        ->join('polizas', 'coberturas.id', '=', 'polizas.cobertura')
+
+        ->where('polizas.num_poliza', '=', $Poliza)
+        ->select('tipo_siniestros.descripcion','tipo_siniestros.id as id_tsiniestro')
+        ->get();*/
+
+        return DB::table('tipo_siniestros')
+        ->join('cobertura_siniestros', 'tipo_siniestros.id', '=', 'cobertura_siniestros.id_tipo_siniestro')
+        ->join('coberturas', 'cobertura_siniestros.id_cobertura', '=', 'coberturas.id')
+        ->join('polizas', 'coberturas.id', '=', 'polizas.cobertura')
+
+        ->where('polizas.id', '=', $Poliza)
+        ->select('tipo_siniestros.descripcion','tipo_siniestros.id as id_tsiniestro')
+        ->get();
+}
     /**
      * Show the form for creating a new resource.
      *
@@ -87,7 +140,7 @@ class SiniestroController extends Controller
 
 
         $Siniestro->descripcion = $request->descripcion;
-        $Siniestro->estado = $request->estado;
+        $Siniestro->estado = "Activa";
 
         $Siniestro->save();
     }
