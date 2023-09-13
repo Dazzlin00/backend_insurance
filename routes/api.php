@@ -126,6 +126,5 @@ Route::get('siniestro/{id}', [SiniestroController::class, 'VerSiniestro'])->midd
   Route::post('reclamos', [ReclamoController::class, 'store'])->middleware(('can:clains.create'))->name('clains.create');
   Route::put('reclamos/{id}', [ReclamoController::class, 'update'])->middleware(('can:clains.update'))->name('clains.update');
   Route::delete('reclamos/{id}', [ReclamoController::class, 'destroy'])->middleware(('can:clains.delete'))->name('clains.delete');
-  Route::get('reclamos', [ReclamoController::class, 'VerMisReclamos'])->middleware(('can:clains.me'))->name('clains.me'); //muestra los reclamos del usuario
-
+  Route::get('user-reclamo', [ReclamoController::class, 'VerMisReclamos'])->middleware(('can:clains.me'))->name('clains.me'); //muestra los reclamos del usuario
 });

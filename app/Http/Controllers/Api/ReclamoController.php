@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reclamo;
+use App\Models\Poliza;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ReclamoController extends Controller
@@ -16,20 +18,31 @@ class ReclamoController extends Controller
     public function index()
     {
         //MUESTRA TODOS LOS RECLAMOS
+        $reclamos = Reclamo::all();
 
-        $Reclamo = Reclamo::all();
-        return $Reclamo;
+        //OBTENEMOS LA DESCRIPCION DE TIPO POLIZA
+        foreach ($reclamos as $reclamo) {
+            $poliza = Poliza::join('reclamo_polizas', 'reclamo_polizas.id_poliza', '=', 'polizas.id')
+            ->where('id', $reclamo->id)->first();
+            $reclamo->num_poliza = $poliza->num_poliza;
+
+            $usuario = User::where('id', $poliza->id_usuario)->first();
+            $reclamo->name = $usuario->name;
+        }
+
+
+        return $reclamos;
     }
 
     public function VerMisReclamos()
     {
-        $poliza = Reclamo::join('polizas', function ($join){
+        $reclamo = Reclamo::join('polizas', function ($join){
              $join->where('polizas.id_usuario', '=', auth()->user()->id);
             })
             ->join('reclamo_polizas', 'reclamo_polizas.id_poliza', '=', 'polizas.id')
             ->get();
 
-        return $poliza;
+        return $reclamo;
 
     }
 
