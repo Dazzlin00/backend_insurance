@@ -69,7 +69,7 @@ class PolizaController extends Controller
             ->where('polizas.id_usuario', auth()->user()->id)
             ->where('polizas.id', $id)
             ->select('polizas.*', 'coberturas.monto_cobertura as cobertura', 'tipo_polizas.descripcion as tipo_poliza', 'users.numid as numid', 'users.name as username')
-            ->get();
+            ->first();
         return $poliza;
     }
     /**
@@ -124,7 +124,12 @@ class PolizaController extends Controller
     public function show($id)
     {
 
-        $poliza = Poliza::findOrFail($id);
+        $poliza = Poliza::join('users', 'users.id', '=', 'polizas.id_usuario')
+            ->join('coberturas', 'coberturas.id','=','polizas.cobertura')
+            ->join('tipo_polizas', 'tipo_polizas.id', '=', 'polizas.tipo_poliza')
+            ->findOrFail($id, ['polizas.*', 'users.numid as numid', 'users.name as username','coberturas.monto_cobertura as cobertura','tipo_polizas.descripcion as tipo_poliza']);
+
+        //$poliza = Poliza::findOrFail($id);
         return $poliza;
 
     }
@@ -151,7 +156,7 @@ class PolizaController extends Controller
     {
         // Actualiza la poliza
         $poliza = Poliza::findOrFail($id);
-        $poliza->id_usuario = $request->id_usuario;
+        //$poliza->id_usuario = $request->id_usuario;
         $poliza->num_poliza = $request->num_poliza;
         $poliza->fecha_inicio = $request->fecha_inicio;
         $poliza->fecha_vencimiento = $request->fecha_vencimiento;
