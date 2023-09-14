@@ -8,7 +8,7 @@ use App\Models\Solicitud;
 use App\Models\TipoPoliza;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\{LoginController, RegisterController, UserController, PolizaController,SiniestroController, Tipo_SiniestroController, MensajeController};
+use App\Http\Controllers\Api\{LoginController, RegisterController, UserController, PolizaController,SiniestroController, Tipo_SiniestroController, MensajeController, GeneralMensajesController};
 use App\Http\Resources\UserResource;
 
 /*
@@ -25,7 +25,8 @@ use App\Http\Resources\UserResource;
 //INICIO Y REGITRO DE USUARIOS
 Route::post('login', [LoginController::class, 'login']);
 Route::post('register', [RegisterController::class, 'register']);
-Route::post('mensajes', [MensajeController::class, 'store']);
+//Route::post('mensajes', [MensajeController::class, 'store']);
+Route::post('general-mensajes', [GeneralMensajesController::class, 'store']);
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -115,6 +116,13 @@ Route::get('siniestro/{id}', [SiniestroController::class, 'VerSiniestro'])->midd
   //PERMISOS
 
   //RUTAS -- !!!ADMIN!!!
+
+  //RUTAS DE MENSAJES GENERALES
+  Route::get('general-mensajes', [GeneralMensajesController::class, 'index'])->middleware(('can:clains.list'))->name('clains.list');
+  Route::get('general-mensajes/{id}', [GeneralMensajesController::class, 'show'])->middleware(('can:clains.view'))->name('clains.view');
+  Route::put('general-mensajes/{id}', [GeneralMensajesController::class, 'update'])->middleware(('can:clains.update'))->name('clains.update');
+  Route::delete('general-mensajes/{id}', [GeneralMensajesController::class, 'destroy'])->middleware(('can:clains.update'))->name('clains.update');
+  //RUTAS DE MENSAJES GENERALES
 
   //RUTAS PARA LAS COBERTURAS
   Route::get('coberturas', [CoberturaController::class, 'index'])->middleware(('can:coverage.list'))->name('coverage.list');
