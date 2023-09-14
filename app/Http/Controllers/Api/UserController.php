@@ -129,6 +129,14 @@ class UserController extends Controller
         $user->address = $request->address;
         $user->phone = $request->phone;
         $user->email = $request->email;
+
+        if ($request->role)
+            $user_role = Role::where(['name' => $request->role])->first();
+
+        if ($user_role) {
+            $user->assignRole($user_role);
+        }
+        
         //$user->password = $request->password;
 
         $user->save();
