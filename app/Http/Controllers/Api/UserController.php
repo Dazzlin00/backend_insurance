@@ -100,7 +100,7 @@ class UserController extends Controller
 
     public function getRolesName()
     {
-        return Role::pluck('name');
+        return Role::whereNotIn('name', ['admin'])->pluck('name');
     }
 
     /**
@@ -136,7 +136,7 @@ class UserController extends Controller
         if ($user_role) {
             $user->assignRole($user_role);
         }
-        
+
         //$user->password = $request->password;
 
         $user->save();
