@@ -130,6 +130,7 @@ Route::get('siniestro/{id}', [SiniestroController::class, 'VerSiniestro'])->midd
   Route::post('coberturas', [CoberturaController::class, 'store'])->middleware(('can:coverage.create'))->name('coverage.create');
   Route::put('coberturas/{id}', [CoberturaController::class, 'update'])->middleware(('can:coverage.update'))->name('coverage.update');
   Route::delete('coberturas/{id}', [CoberturaController::class, 'destroy'])->middleware(('can:coverage.delete'))->name('coverage.delete');
+  
   //RUTAS PARA RECLAMOS
   Route::get('reclamos', [ReclamoController::class, 'index'])->middleware(('can:clains.list'))->name('clains.list');
   Route::get('reclamos/{id}', [ReclamoController::class, 'show'])->middleware(('can:clains.view'))->name('clains.view');

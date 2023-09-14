@@ -22,7 +22,11 @@ class UserController extends Controller
     public function index()
     {
 
-        $usuarios = User::Role("user")->get();
+        $usuarios = User::all();
+
+        foreach ($usuarios as $usuario) {
+            $usuario->roles->first();
+        }
         
         return $usuarios;
     }
