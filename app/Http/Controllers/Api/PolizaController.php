@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cobertura;
 use App\Models\TipoPoliza;
 use Carbon\Carbon;
+use DB;
 use Illuminate\Http\Request;
 use App\Models\Poliza;
 use App\Models\User;
@@ -37,17 +38,17 @@ class PolizaController extends Controller
         return $polizas;
     }
     public function getPolizas(Request $request)
-{
-    $numid = $request->input('numid');
+    {
+        $numid = $request->input('numid');
 
-    $polizas = Poliza::where('id_usuario', User::where('numid', $numid)->first()->id)
-        ->select('polizas.num_poliza','polizas.id as id_poliza','Coberturas.id as id_cobertura','Coberturas.descripcion as desc_cobertura' , 'users.name as nombre','users.id as id_usuario')
-        ->join('coberturas', 'polizas.cobertura', '=', 'coberturas.id')
-        ->join('users', 'polizas.id_usuario', '=', 'users.id')
-        ->get();
+        $polizas = Poliza::where('id_usuario', User::where('numid', $numid)->first()->id)
+            ->select('polizas.num_poliza', 'polizas.id as id_poliza', 'Coberturas.id as id_cobertura', 'Coberturas.descripcion as desc_cobertura', 'users.name as nombre', 'users.id as id_usuario')
+            ->join('coberturas', 'polizas.cobertura', '=', 'coberturas.id')
+            ->join('users', 'polizas.id_usuario', '=', 'users.id')
+            ->get();
 
-    return $polizas;
-}
+        return $polizas;
+    }
 
     public function VerMisPolizas()
     {
@@ -64,8 +65,8 @@ class PolizaController extends Controller
     {
 
         $poliza = Poliza::join('tipo_polizas', 'tipo_polizas.id', '=', 'polizas.tipo_poliza')
-            ->join('coberturas', 'coberturas.id','=','polizas.cobertura')
-            ->join('users', 'users.id','=','polizas.id_usuario')
+            ->join('coberturas', 'coberturas.id', '=', 'polizas.cobertura')
+            ->join('users', 'users.id', '=', 'polizas.id_usuario')
             ->where('polizas.id_usuario', auth()->user()->id)
             ->where('polizas.id', $id)
             ->select('polizas.*', 'coberturas.monto_cobertura as cobertura', 'tipo_polizas.descripcion as tipo_poliza', 'users.numid as numid', 'users.name as username')
@@ -83,7 +84,21 @@ class PolizaController extends Controller
     }
 
 
+    public function VerCoberturaPorTipoPoliza($tipo_poliza)
+    {
 
+
+        // Obtenemos los datos de la tabla de coberturas
+        $coberturas = DB::table('coberturas')
+            ->select(['coberturas.descripcion AS coberturas','coberturas.id AS id_cobertura', 'tipo_polizas.descripcion AS tipo_poliza'])
+            ->join('tipo_poliza__coberturas', 'coberturas.id', '=', 'tipo_poliza__coberturas.id_cobertura')
+            ->join('tipo_polizas', 'tipo_poliza__coberturas.id_tipo_poliza', '=', 'tipo_polizas.id')
+            ->where('tipo_polizas.id', $tipo_poliza)
+            ->get();
+
+        // Devolvemos los resultados
+        return $coberturas;
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -94,12 +109,12 @@ class PolizaController extends Controller
     public function store(Request $request)
     {
         // Obtener el período de cobertura
-       // $periodo = Carbon::parse($request->fecha_inicio)->diffInDays($request->fecha_vencimiento);
+        // $periodo = Carbon::parse($request->fecha_inicio)->diffInDays($request->fecha_vencimiento);
 
         //$tasa_base = $request->cobertura * 1;
         $poliza = new Poliza();
 
-        $poliza->id_usuario =$request->id_usuario;
+        $poliza->id_usuario = $request->id_usuario;
 
         $poliza->num_poliza = $request->num_poliza;
 
@@ -108,11 +123,11 @@ class PolizaController extends Controller
         $poliza->fecha_vencimiento = $request->fecha_vencimiento;
         $poliza->cobertura = $request->cobertura;
         $poliza->monto_prima = $request->monto_prima;
-       $poliza->estado = $request->estado;
-       // $poliza->estado="A" ;
+       // $poliza->estado = $request->estado;
+        $poliza->estado="Activa" ;
 
         $poliza->save();
-        $poliza->coberturas()->attach($request->id_cobertura);
+       // $poliza->coberturas()->attach($request->id_cobertura);
     }
 
     /**
@@ -125,9 +140,9 @@ class PolizaController extends Controller
     {
 
         $poliza = Poliza::join('users', 'users.id', '=', 'polizas.id_usuario')
-            ->join('coberturas', 'coberturas.id','=','polizas.cobertura')
+            ->join('coberturas', 'coberturas.id', '=', 'polizas.cobertura')
             ->join('tipo_polizas', 'tipo_polizas.id', '=', 'polizas.tipo_poliza')
-            ->findOrFail($id, ['polizas.*', 'users.numid as numid', 'users.name as username','coberturas.monto_cobertura as cobertura','tipo_polizas.descripcion as tipo_poliza']);
+            ->findOrFail($id, ['polizas.*', 'users.numid as numid', 'users.name as username', 'coberturas.monto_cobertura as cobertura', 'tipo_polizas.descripcion as tipo_poliza']);
 
         //$poliza = Poliza::findOrFail($id);
         return $poliza;
@@ -157,10 +172,10 @@ class PolizaController extends Controller
         // Actualiza la poliza
         $poliza = Poliza::findOrFail($id);
         //$poliza->id_usuario = $request->id_usuario;
-        $poliza->num_poliza = $request->num_poliza;
+        //  $poliza->num_poliza = $request->num_poliza;
         $poliza->fecha_inicio = $request->fecha_inicio;
         $poliza->fecha_vencimiento = $request->fecha_vencimiento;
-        $poliza->estado = $request->estado;
+        //$poliza->estado = $request->estado;
         $poliza->save();
         return $poliza;
     }
