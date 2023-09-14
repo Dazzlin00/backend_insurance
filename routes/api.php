@@ -72,6 +72,8 @@ Route::get('poliza-user', [PolizaController::class, 'getPolizas'])->middleware((
   Route::put('siniestros/{id}', [SiniestroController::class, 'update'])->middleware(('can:sinister.update'))->name('sinister.update'); //Actualiza 
   Route::delete('siniestros/{id}', [SiniestroController::class, 'destroy'])->middleware(('can:sinister.delete'))->name('sinister.delete'); //Elimina 
   Route::get('siniestro', [SiniestroController::class, 'VerMisSiniestros'])->middleware(('can:sinister.me'))->name('sinister.me'); //muestra todos los registros
+  Route::put('aprobar/{id}', [SiniestroController::class, 'Aprobar'])->middleware(('can:sinister.update'))->name('sinister.update'); //Actualiza 
+  Route::put('rechazar/{id}', [SiniestroController::class, 'Rechazar'])->middleware(('can:sinister.update'))->name('sinister.update'); //Actualiza 
 
   //SINIESTROS POR COBERTURA 
   

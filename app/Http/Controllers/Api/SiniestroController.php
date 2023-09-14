@@ -194,6 +194,24 @@ class SiniestroController extends Controller
         $Siniestro->save();
         return $Siniestro;
     }
+    public function Aprobar(Request $request, $id)
+    {
+        // Actualiza 
+       $Siniestro = Siniestro::findOrFail($id);
+      $Siniestro->estado = "Aprobada";
+
+        $Siniestro->save();
+        return $Siniestro;
+    }
+    public function Rechazar(Request $request, $id)
+    {
+        // Actualiza 
+       $Siniestro = Siniestro::findOrFail($id);
+      $Siniestro->estado = "Rechazada";
+
+        $Siniestro->save();
+        return $Siniestro;
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -210,8 +228,8 @@ class SiniestroController extends Controller
         $Siniestro->usuarios()->detach();
         $Siniestro->delete();
 
-        //  $Siniestro = Siniestro::destroy($request->id);
+        
 
-        //return $Siniestro;
+        
     }
 }
