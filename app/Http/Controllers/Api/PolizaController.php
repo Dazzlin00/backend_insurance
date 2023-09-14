@@ -112,7 +112,7 @@ class PolizaController extends Controller
        // $poliza->estado="A" ;
 
         $poliza->save();
-
+        $poliza->coberturas()->attach($request->id_cobertura);
     }
 
     /**

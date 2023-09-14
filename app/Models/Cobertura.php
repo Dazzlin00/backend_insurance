@@ -9,5 +9,8 @@ class Cobertura extends Model
 {
     use HasFactory;
 protected $fillable= ['descripcion','monto_cobertura'];
-
+public function polizas()
+{
+    return $this->belongsToMany(Poliza::class, 'poliza_coberturas', 'id_cobertura','id_poliza');
+}
 }

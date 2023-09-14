@@ -30,6 +30,11 @@ class User extends Authenticatable
       
     ];
 
+    public function siniestros()
+    {
+        return $this->belongsToMany(Siniestro::class, 'siniestro__usuarios', 'id_usuario', 'id_siniestro');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

@@ -17,7 +17,7 @@ class PolizaCoberturaSeeder extends Seeder
     {
         $data= [ 
             'id_poliza'=>'1',
-            'id_corbertura'=>'1',
+            'id_cobertura'=>'1',
             
         ];
         DB::table('poliza_coberturas')->insert($data);

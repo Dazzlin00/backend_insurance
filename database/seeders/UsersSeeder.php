@@ -176,13 +176,14 @@ class UsersSeeder extends Seeder
 
 
             $policies_create,
-            
+            $policies_view,
             $clains_report,
             $clains_view,
             $policies_me,
+            $sinister ,
             $sinister_me,
             $sinister_create,
-           
+            $sinister_view,
             $clains_me,
         ]);
         $user_role->givePermissionTo([
@@ -190,12 +191,13 @@ class UsersSeeder extends Seeder
 
 
             $policies_create,
-           
+            $policies_view,
             $clains_report,
             $clains_view,
             $policies_me,
+            $sinister ,
             $sinister_me,
-           
+            $sinister_view,
             $sinister_create,
             $clains_me,
         ]);
@@ -240,6 +242,7 @@ class UsersSeeder extends Seeder
             $sinister_view,
             $sinister_update,
             $sinister_create,
+            $sinister_delete,
             //COBERTURAS
             $coverage,
             $coverage_view,
@@ -286,6 +289,7 @@ class UsersSeeder extends Seeder
 
             $sinister_create,
             $sinister_me,
+            $sinister_delete,
            
             //RECLAMOS
             $clains_me,

@@ -58,7 +58,6 @@ class SiniestroController extends Controller
     }
     public function VerSiniestro($id)
     {
-        
 
         $siniestro = Siniestro::where('siniestros.id', $id)
             ->join('users', 'siniestros.id_usuario', '=', 'users.id')
@@ -71,41 +70,41 @@ class SiniestroController extends Controller
 
 
     }
-   /* public function VerTipoSiniestroPorCobertura($descripcion)
-    {
-        
+    /* public function VerTipoSiniestroPorCobertura($descripcion)
+     {
+         
 
-        $tipoSiniestro = Cobertura_siniestro::where('coberturas.descripcion', $descripcion)
-            ->join('tipo_siniestros', 'cobertura_siniestros.id_tipo_siniestro', '=', 'tipo_siniestros.id')
-            ->join('coberturas', 'cobertura_siniestros.id_cobertura', '=', 'coberturas.id')
-            ->select('tipo_siniestros.descripcion')
-            ->first();
+         $tipoSiniestro = Cobertura_siniestro::where('coberturas.descripcion', $descripcion)
+             ->join('tipo_siniestros', 'cobertura_siniestros.id_tipo_siniestro', '=', 'tipo_siniestros.id')
+             ->join('coberturas', 'cobertura_siniestros.id_cobertura', '=', 'coberturas.id')
+             ->select('tipo_siniestros.descripcion')
+             ->first();
 
-        return $tipoSiniestro;
+         return $tipoSiniestro;
 
 
-    }*/
+     }*/
 
     public function VerTipoSiniestroPorPoliza($Poliza)
-{
-    /*return DB::table('tipo_siniestros')
-        ->join('cobertura_siniestros', 'tipo_siniestros.id', '=', 'cobertura_siniestros.id_tipo_siniestro')
-        ->join('coberturas', 'cobertura_siniestros.id_cobertura', '=', 'coberturas.id')
-        ->join('polizas', 'coberturas.id', '=', 'polizas.cobertura')
+    {
+        /*return DB::table('tipo_siniestros')
+            ->join('cobertura_siniestros', 'tipo_siniestros.id', '=', 'cobertura_siniestros.id_tipo_siniestro')
+            ->join('coberturas', 'cobertura_siniestros.id_cobertura', '=', 'coberturas.id')
+            ->join('polizas', 'coberturas.id', '=', 'polizas.cobertura')
 
-        ->where('polizas.num_poliza', '=', $Poliza)
-        ->select('tipo_siniestros.descripcion','tipo_siniestros.id as id_tsiniestro')
-        ->get();*/
+            ->where('polizas.num_poliza', '=', $Poliza)
+            ->select('tipo_siniestros.descripcion','tipo_siniestros.id as id_tsiniestro')
+            ->get();*/
 
         return DB::table('tipo_siniestros')
-        ->join('cobertura_siniestros', 'tipo_siniestros.id', '=', 'cobertura_siniestros.id_tipo_siniestro')
-        ->join('coberturas', 'cobertura_siniestros.id_cobertura', '=', 'coberturas.id')
-        ->join('polizas', 'coberturas.id', '=', 'polizas.cobertura')
+            ->join('cobertura_siniestros', 'tipo_siniestros.id', '=', 'cobertura_siniestros.id_tipo_siniestro')
+            ->join('coberturas', 'cobertura_siniestros.id_cobertura', '=', 'coberturas.id')
+            ->join('polizas', 'coberturas.id', '=', 'polizas.cobertura')
 
-        ->where('polizas.id', '=', $Poliza)
-        ->select('tipo_siniestros.descripcion','tipo_siniestros.id as id_tsiniestro')
-        ->get();
-}
+            ->where('polizas.id', '=', $Poliza)
+            ->select('tipo_siniestros.descripcion', 'tipo_siniestros.id as id_tsiniestro')
+            ->get();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -143,6 +142,9 @@ class SiniestroController extends Controller
         $Siniestro->estado = "Activa";
 
         $Siniestro->save();
+
+        $Siniestro->usuarios()->attach($request->id_usuario);
+
     }
 
     /**
@@ -179,11 +181,15 @@ class SiniestroController extends Controller
     {
         // Actualiza 
         $Siniestro = Siniestro::findOrFail($id);
-        $Siniestro->id_tipo_siniestro = $request->id_tipo_siniestro;
-        $Siniestro->numero_siniestro = $request->numero_siniestro;
+        // $Siniestro->id_tipo_siniestro = $request->id_tipo_siniestro;
+        // $Siniestro->numero_siniestro = $request->numero_siniestro;
         $Siniestro->fecha_reporte = $request->fecha_reporte;
+        $Siniestro->fecha_declaracion = $request->fecha_declaracion;
+        $Siniestro->estado_ocu = $request->estado_ocu;
+        $Siniestro->ciudad = $request->ciudad;
+        $Siniestro->lugar = $request->lugar;
         $Siniestro->descripcion = $request->descripcion;
-        $Siniestro->estado = $request->estado;
+        // $Siniestro->estado = $request->estado;
 
         $Siniestro->save();
         return $Siniestro;
@@ -195,10 +201,17 @@ class SiniestroController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+
+
+    public function destroy(Request $request, $id)
     {
         //Elimina
-        $Siniestro = Siniestro::destroy($request->id);
-        return $Siniestro;
+        $Siniestro = Siniestro::find($id);
+        $Siniestro->usuarios()->detach();
+        $Siniestro->delete();
+
+        //  $Siniestro = Siniestro::destroy($request->id);
+
+        //return $Siniestro;
     }
 }
