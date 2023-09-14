@@ -10,6 +10,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
+
 use Spatie\QueryBuilder\QueryBuilder;
 
 class UserController extends Controller
@@ -93,7 +94,13 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
+        $user->roles->first();
         return $user;
+    }
+
+    public function getRolesName()
+    {
+        return Role::whereNotIn('name', ['admin'])->pluck('name');
     }
 
     /**
@@ -122,7 +129,15 @@ class UserController extends Controller
         $user->address = $request->address;
         $user->phone = $request->phone;
         $user->email = $request->email;
-        $user->password = $request->password;
+
+        if ($request->role)
+            $user_role = Role::where(['name' => $request->role])->first();
+
+        if ($user_role) {
+            $user->assignRole($user_role);
+        }
+
+        //$user->password = $request->password;
 
         $user->save();
 
