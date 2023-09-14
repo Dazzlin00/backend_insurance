@@ -44,7 +44,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   //Route::get('users/{id}', [UserController::class, 'show'])->middleware(('can:users.view'))->name('users.view'); //ver
   Route::post('users', [UserController::class, 'store'])->middleware(('can:users.create'))->name('users.create'); //crea 
   Route::put('users/{id}', [UserController::class, 'update'])->middleware(('can:users.update'))->name('users.update'); //Actualiza 
-  Route::delete('users/{id}', [UserController::class, 'destroy'])->middleware(('can:users.delete'))->name('users.delete'); //Elimina 
+  Route::delete('users/{id}', [UserController::class, 'destroy'])->middleware(('can:users.delete'))->name('users.delete'); //Elimina
+  Route::get('user-roles', [UserController::class, 'getRolesName'])->middleware(('can:users.list'))->name('users.list');
 //BUSCA SI EL USUARIO TIENE POLIZA
 //Route::get('userpoliza', [UserController::class, 'SearchUserPoliza'])->middleware(('can:users.policies.list'))->name('users.policies.list'); //muestra todos los registros
 
