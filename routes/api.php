@@ -50,13 +50,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 //Route::get('userpoliza', [UserController::class, 'SearchUserPoliza'])->middleware(('can:users.policies.list'))->name('users.policies.list'); //muestra todos los registros
 
   //RUTAS PARA LAS POLIZAS
-  Route::get('polizas', [PolizaController::class, 'index'])->middleware(('can:users.policies'))->name('users.policies'); //muestra todos los registros
+  Route::get('polizas', [PolizaController::class, 'index'])->middleware(('can:policies.view'))->name('policies.view'); //muestra todos los registros
   Route::get('polizas/{id}', [PolizaController::class, 'show'])->middleware(('can:policies.view'))->name('policies.view'); //ver una poliza
   Route::post('polizas', [PolizaController::class, 'store'])->middleware(('can:policies.create'))->name('policies.create'); //crea una poliza
   Route::put('polizas/{id}', [PolizaController::class, 'update'])->middleware(('can:policies.update'))->name('policies.update'); //Actualiza una poliza
   Route::delete('polizas/{id}', [PolizaController::class, 'destroy'])->middleware(('can:policies.delete'))->name('policies.delete'); //Elimina una poliza
   Route::get('tipopolizas', [TipoPolizaController::class, 'index'])->middleware(('can:policies.view'))->name('policies.view'); 
-  
+  Route::put('aprobarp/{id}', [PolizaController::class, 'Aprobar'])->middleware(('can:policies.update'))->name('policies.update'); //Actualiza 
+  Route::put('rechazarp/{id}', [PolizaController::class, 'Rechazar'])->middleware(('can:policies.update'))->name('policies.update'); //Actualiza 
+
 
   //RUTA QUE MUESTRA LAS POLIZAS DEL USUARIO
   Route::get('user-poliza', [PolizaController::class, 'VerMisPolizas'])->middleware(('can:users.policies.me'))->name('users.policies.me'); //muestra todos mis registros
