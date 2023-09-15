@@ -34,6 +34,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Siniestro::class, 'siniestro__usuarios', 'id_usuario', 'id_siniestro');
     }
+    public function polizas()
+    {
+        return $this->belongsToMany(Poliza::class, 'poliza__usuarios', 'id_usuario', 'id_poliza');
+    }
 
     /**
      * The attributes that should be hidden for serialization.

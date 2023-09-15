@@ -15,4 +15,8 @@ class Poliza extends Model
         return $this->belongsToMany(Cobertura::class, 'poliza_coberturas', 'id_poliza', 'id_cobertura');
     }
 
+    public function usuarios()
+    {
+        return $this->belongsToMany(User::class, 'poliza__usuarios', 'id_poliza', 'id_usuario');
+    }
 }

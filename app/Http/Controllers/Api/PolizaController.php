@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cobertura;
+use App\Models\Poliza_Usuario;
 use App\Models\TipoPoliza;
+use Auth;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
@@ -52,13 +54,38 @@ class PolizaController extends Controller
 
     public function VerMisPolizas()
     {
-        //$poliza = Poliza::where('id_usuario', auth()->user()->id)->get();
-        //return $poliza;
 
-        $poliza = Poliza::join('tipo_polizas', 'tipo_polizas.id', '=', 'polizas.tipo_poliza')
-            ->where('id_usuario', auth()->user()->id)
-            ->get();
-        return $poliza;
+
+       
+      /*  // Obtenemos el usuario autenticado
+        $user = Auth::user();
+
+        // Consultamos la tabla `siniestro_usuario` para obtener los ID de los siniestros del usuario
+        $polizaid = Poliza_Usuario::where('id_usuario', $user->id)->pluck('id_poliza');
+
+        // Consultamos la tabla `siniestros` para obtener los siniestros del usuario
+        $poliza = Poliza::whereIn('id', $polizaid)->get();
+
+        // Devolvemos los siniestros
+        return $poliza;*/
+
+        // Obtenemos el usuario autenticado
+$user = Auth::user();
+
+// Consultamos la tabla `siniestro_usuario` para obtener los ID de los siniestros del usuario
+$polizaid = Poliza_Usuario::where('id_usuario', $user->id)->pluck('id_poliza');
+
+// Consultamos la tabla `siniestros` para obtener los siniestros del usuario
+$poliza = Poliza::whereIn('id', $polizaid)->get();
+
+// Obtenemos la descripción del tipo de póliza para cada siniestro
+$poliza->each(function($poliza) {
+    $poliza->tipo_poliza = TipoPoliza::find($poliza->tipo_poliza)->descripcion;
+});
+
+// Devolvemos los siniestros
+return $poliza;
+
     }
 
     public function VerMiPoliza($id)
@@ -90,7 +117,7 @@ class PolizaController extends Controller
 
         // Obtenemos los datos de la tabla de coberturas
         $coberturas = DB::table('coberturas')
-            ->select(['coberturas.descripcion AS coberturas','coberturas.id AS id_cobertura', 'tipo_polizas.descripcion AS tipo_poliza'])
+            ->select(['coberturas.descripcion AS coberturas', 'coberturas.id AS id_cobertura', 'coberturas.monto_cobertura AS monto_cobertura', 'tipo_polizas.descripcion AS tipo_poliza'])
             ->join('tipo_poliza__coberturas', 'coberturas.id', '=', 'tipo_poliza__coberturas.id_cobertura')
             ->join('tipo_polizas', 'tipo_poliza__coberturas.id_tipo_poliza', '=', 'tipo_polizas.id')
             ->where('tipo_polizas.id', $tipo_poliza)
@@ -123,11 +150,13 @@ class PolizaController extends Controller
         $poliza->fecha_vencimiento = $request->fecha_vencimiento;
         $poliza->cobertura = $request->cobertura;
         $poliza->monto_prima = $request->monto_prima;
-       // $poliza->estado = $request->estado;
-        $poliza->estado="Activa" ;
+        // $poliza->estado = $request->estado;
+        $poliza->estado = "Activa";
 
         $poliza->save();
-       // $poliza->coberturas()->attach($request->id_cobertura);
+        // $poliza->coberturas()->attach($request->id_cobertura);
+        $poliza->usuarios()->attach($request->id_usuario);
+
     }
 
     /**
@@ -142,7 +171,7 @@ class PolizaController extends Controller
         $poliza = Poliza::join('users', 'users.id', '=', 'polizas.id_usuario')
             ->join('coberturas', 'coberturas.id', '=', 'polizas.cobertura')
             ->join('tipo_polizas', 'tipo_polizas.id', '=', 'polizas.tipo_poliza')
-            ->findOrFail($id, ['polizas.*', 'users.numid as numid', 'users.name as username', 'coberturas.monto_cobertura as cobertura', 'tipo_polizas.descripcion as tipo_poliza']);
+            ->findOrFail($id, ['polizas.*', 'users.numid as numid', 'users.name as username', 'coberturas.monto_cobertura as monto_cobertura', 'coberturas.descripcion as cobertura', 'tipo_polizas.descripcion as tipo_poliza']);
 
         //$poliza = Poliza::findOrFail($id);
         return $poliza;
@@ -180,16 +209,36 @@ class PolizaController extends Controller
         return $poliza;
     }
 
+    public function Aprobar(Request $request, $id)
+    {
+        // Actualiza 
+       $poliza = Poliza::findOrFail($id);
+      $poliza->estado = "Aprobada";
+
+        $poliza->save();
+        return $poliza;
+    }
+    public function Rechazar(Request $request, $id)
+    {
+        // Actualiza 
+       $poliza = Poliza::findOrFail($id);
+      $poliza->estado = "Rechazada";
+
+        $poliza->save();
+        return $poliza;
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        //Elimina una poliza
-        $poliza = Poliza::destroy($request->id);
-        return $poliza;
+            //Elimina
+            $poliza = Poliza::find($id);
+            $poliza->usuarios()->detach();
+            $poliza->delete();
     }
 }

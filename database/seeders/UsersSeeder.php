@@ -174,7 +174,7 @@ class UsersSeeder extends Seeder
         $user->givePermissionTo([
 
 
-
+            $user_view,
             $policies_create,
             $policies_view,
             $clains_report,
@@ -188,7 +188,7 @@ class UsersSeeder extends Seeder
         ]);
         $user_role->givePermissionTo([
 
-
+            $user_view,
 
             $policies_create,
             $policies_view,
