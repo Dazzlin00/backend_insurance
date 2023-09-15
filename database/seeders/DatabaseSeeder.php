@@ -31,6 +31,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SiniestroUsuarioSeeder::class);
         $this->call(Cobertura_tipo_SiniestroSeeder::class);
         $this->call(Tipo_Poliza_CoberturaSeeder::class);
+        $this->call(PolizaUsuariosSeeder::class);
+
 
 
 
