@@ -8,7 +8,7 @@ use App\Models\Solicitud;
 use App\Models\TipoPoliza;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\{LoginController, RegisterController, UserController, PolizaController,SiniestroController, Tipo_SiniestroController, MensajeController, GeneralMensajesController};
+use App\Http\Controllers\Api\{LoginController, RegisterController, UserController, PolizaController,SiniestroController, Tipo_SiniestroController, MensajeController, GeneralMensajesController, PagoController};
 use App\Http\Resources\UserResource;
 
 /*
@@ -25,7 +25,8 @@ use App\Http\Resources\UserResource;
 //INICIO Y REGITRO DE USUARIOS
 Route::post('login', [LoginController::class, 'login']);
 Route::post('register', [RegisterController::class, 'register']);
-//Route::post('mensajes', [MensajeController::class, 'store']);
+
+//RECIBE MENSAJES DEL HOME
 Route::post('general-mensajes', [GeneralMensajesController::class, 'store']);
 
 
@@ -39,13 +40,24 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::post('logout', [LoginController::class, 'logout']);
 
   //RUTAS PARA USUARIOS
-
   Route::get('users', [UserController::class, 'index'])->middleware(('can:users.list'))->name('users.list');
-  //Route::get('users/{id}', [UserController::class, 'show'])->middleware(('can:users.view'))->name('users.view'); //ver
+  Route::get('users/{id}', [UserController::class, 'show'])->middleware(('can:users.view'))->name('users.view'); //ver
   Route::post('users', [UserController::class, 'store'])->middleware(('can:users.create'))->name('users.create'); //crea 
   Route::put('users/{id}', [UserController::class, 'update'])->middleware(('can:users.update'))->name('users.update'); //Actualiza 
   Route::delete('users/{id}', [UserController::class, 'destroy'])->middleware(('can:users.delete'))->name('users.delete'); //Elimina
-  Route::get('user-roles', [UserController::class, 'getRolesName'])->middleware(('can:users.list'))->name('users.list');
+  Route::get('user-roles', [UserController::class, 'getRolesName'])->middleware(('can:users.list'))->name('users.list'); //Obtiene roles
+  //RUTAS PARA USUARIOS
+
+  //RUTAS PARA PAGOS
+  Route::get('pagos', [PagoController::class, 'index'])->middleware(('can:users.policies'))->name('users.policies');
+  Route::get('pagos/{id}', [PagoController::class, 'show'])->middleware(('can:policies.view'))->name('policies.view'); //ver
+  Route::post('pagos', [PagoController::class, 'store'])->middleware(('can:policies.create'))->name('policies.create'); //crea 
+  Route::put('pagos/{id}', [PagoController::class, 'update'])->middleware(('can:policies.update'))->name('policies.update'); //Actualiza 
+  Route::delete('pagos/{id}', [PagoController::class, 'destroy'])->middleware(('can:policies.delete'))->name('policies.delete'); //Elimina
+  Route::get('user-pago', [PagoController::class, 'verMisPagos'])->middleware(('can:users.policies.me'))->name('users.policies.me');
+  Route::get('user-pago/{id}', [PolizaController::class, 'verMiPago'])->middleware(('can:users.policies.me'))->name('users.policies.me');
+  //RUTAS PARA PAGOS
+
 //BUSCA SI EL USUARIO TIENE POLIZA
 //Route::get('userpoliza', [UserController::class, 'SearchUserPoliza'])->middleware(('can:users.policies.list'))->name('users.policies.list'); //muestra todos los registros
 
@@ -103,14 +115,6 @@ Route::get('siniestro/{id}', [SiniestroController::class, 'VerSiniestro'])->midd
   //RUTAS DE MENSAJES
 
   //RUTAS -- !!!ADMIN!!!
-
-  //USUARIOS
-  //Route::get('users', [UserController::class, 'index'])->middleware(('can:users.list'))->name('users.list');
-  Route::get('users/{id}', [UserController::class, 'show'])->middleware(('can:users.view'))->name('users.view');
-  Route::post('users', [UserController::class, 'store'])->middleware(('can:users.create'))->name('users.create');
-  Route::put('users/{id}', [UserController::class, 'update'])->middleware(('can:users.update'))->name('users.update');
-  Route::delete('users/{id}', [UserController::class, 'destroy'])->middleware(('can:users.delete'))->name('users.delete');
-  //USUARIOS
 
   //PERMISOS
   Route::get('permissions', [Tipo_Siniestro::class, 'index'])->middleware(('can:users.permissions'))->name('users.permissions');
