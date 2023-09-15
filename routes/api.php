@@ -55,7 +55,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::put('pagos/{id}', [PagoController::class, 'update'])->middleware(('can:policies.update'))->name('policies.update'); //Actualiza 
   Route::delete('pagos/{id}', [PagoController::class, 'destroy'])->middleware(('can:policies.delete'))->name('policies.delete'); //Elimina
   Route::get('user-pago', [PagoController::class, 'verMisPagos'])->middleware(('can:users.policies.me'))->name('users.policies.me');
-  Route::get('user-pago/{id}', [PolizaController::class, 'verMiPago'])->middleware(('can:users.policies.me'))->name('users.policies.me');
+  Route::get('user-pago/{id}', [PagoController::class, 'verMiPago'])->middleware(('can:users.policies.me'))->name('users.policies.me');
   //RUTAS PARA PAGOS
 
 //BUSCA SI EL USUARIO TIENE POLIZA

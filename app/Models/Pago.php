@@ -23,6 +23,7 @@ class Pago extends Model
         if (in_array($value, self::$estadoValues)) {
             $this->attributes['estado'] = $value;
         } else {
+            $this->attributes['estado'] = "En espera";
             return false;
         }
     }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pago;
+use App\Models\Poliza;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PagoController extends Controller
@@ -16,6 +18,14 @@ class PagoController extends Controller
     public function index()
     {
         $Pago = Pago::all();
+
+        foreach ($Pago as $p) {
+            $poliza = Poliza::where('id', $p->id_poliza)->first();
+            $p->num_poliza = $poliza->num_poliza;
+            $usuario = User::where('id', $poliza->id_usuario)->first();
+            $p->name = $usuario->name;
+        }
+
         return $Pago;
     }
 
@@ -28,7 +38,7 @@ class PagoController extends Controller
     public function store(Request $request)
     {
         $Pago = new Pago();
-        $Pago->id_poliza = $request->id_poliza;
+        $Pago->id_poliza = Poliza::where('num_poliza', $request->num_poliza)->value('id');
         $Pago->numero_transaccion = $request->numero_transaccion;
         $Pago->monto = $request->monto;
         $Pago->fecha_pago = $request->fecha_pago;
@@ -46,7 +56,10 @@ class PagoController extends Controller
      */
     public function show($id)
     {
-        $Pago = Pago::findOrFail($id);
+        $Pago = Pago::join('polizas', 'polizas.id', '=', 'pagos.id_poliza')
+        ->join('users', 'users.id', '=', 'polizas.id_usuario')
+        ->select('pagos.*', 'users.numid as numid', 'users.name as username', 'polizas.num_poliza')
+        ->findOrFail($id);
         $Pago->estadoVal = $Pago::getEstadoValues();
         return $Pago;
     }
@@ -55,6 +68,7 @@ class PagoController extends Controller
     {
         $pagos = Pago::join('polizas', 'polizas.id', '=', 'pagos.id_poliza')
             ->where('polizas.id_usuario', auth()->user()->id)
+            ->select('pagos.*', 'polizas.num_poliza as num_poliza')
             ->get();
         return $pagos;
     }
@@ -63,9 +77,9 @@ class PagoController extends Controller
     {
         $pago = Pago::join('polizas', 'polizas.id', '=', 'pagos.id_poliza')
             ->join('users', 'users.id', '=', 'polizas.id_usuario')
-            ->where('polizas.id', $id)
             ->select('pagos.*', 'users.numid as numid', 'users.name as username', 'polizas.num_poliza')
-            ->first();
+            ->findOrFail($id);
+        $pago->estadoVal = $pago::getEstadoValues();
         return $pago;
     }
 
@@ -79,7 +93,7 @@ class PagoController extends Controller
     public function update(Request $request, $id)
     {
         $Pago = Pago::findOrFail($id);
-        $Pago->id_poliza = $request->id_poliza;
+        $Pago->id_poliza = Poliza::where('num_poliza', $request->num_poliza)->value('id');
         $Pago->numero_transaccion = $request->numero_transaccion;
         $Pago->monto = $request->monto;
         $Pago->fecha_pago = $request->fecha_pago;
