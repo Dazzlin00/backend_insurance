@@ -85,6 +85,17 @@ class UserController extends Controller
         }
     }
 
+    public function actualizarinfo(Request $request,$id)
+    {
+
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->numid = $request->numid;
+        $user->address = $request->address;
+        $user->phone = $request->phone;
+        $user->save();
+    }
+
     /**
      * Display the specified resource.
      *

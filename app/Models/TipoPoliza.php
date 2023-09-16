@@ -11,4 +11,9 @@ class TipoPoliza extends Model
 
     protected $fillable = ['descripcion'];
 
+    public function coberturas()
+    {
+        return $this->belongsToMany(Cobertura::class, 'tipo_poliza__coberturas', 'id_tipo_poliza', 'id_cobertura');
+    }
+
 }

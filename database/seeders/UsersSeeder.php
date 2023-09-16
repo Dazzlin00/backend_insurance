@@ -23,6 +23,8 @@ class UsersSeeder extends Seeder
         $user_view = Permission::create(['name' => 'users.view']); // VER USUARIO
         $user_create = Permission::create(['name' => 'users.create']); //CREAR 
         $user_update = Permission::create(['name' => 'users.update']); //ACTUALIZAR
+        $user_update_me = Permission::create(['name' => 'users.update.me']); //ACTUALIZAR
+
         $user_delete = Permission::create(['name' => 'users.delete']); //ELIMINAR
         //POLIZAS
         $policies = Permission::create(['name' => 'users.policies']); //POLIZAS
@@ -72,6 +74,7 @@ class UsersSeeder extends Seeder
             $user_update,
             $user_delete,
             $user_view,
+            $user_update_me ,
             $policies_user,
             //POLIZAS
             $policies,
@@ -123,6 +126,7 @@ class UsersSeeder extends Seeder
             $user_update,
             $user_delete,
             $user_view,
+            $user_update_me ,
             $policies_user,
             //POLIZAS
             $policies,
@@ -173,7 +177,7 @@ class UsersSeeder extends Seeder
         $user->assignRole($user_role);
         $user->givePermissionTo([
 
-
+            $user_update_me ,
             $user_view,
             $policies_create,
             $policies_view,
@@ -189,7 +193,7 @@ class UsersSeeder extends Seeder
         $user_role->givePermissionTo([
 
             $user_view,
-
+            $user_update_me ,
             $policies_create,
             $policies_view,
             $clains_report,
@@ -227,6 +231,7 @@ class UsersSeeder extends Seeder
             $user_delete,
             $user_view,
             $policies_user,
+            $user_update_me ,
             //POLIZAS
             $policies,
             $policies_view,
@@ -273,6 +278,7 @@ class UsersSeeder extends Seeder
             $user_delete,
             $user_view,
             $policies_user,
+            $user_update_me ,
             //POLIZAS
             $policies,
             $policies_view,

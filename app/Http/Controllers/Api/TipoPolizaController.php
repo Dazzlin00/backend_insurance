@@ -62,6 +62,8 @@ class TipoPolizaController extends Controller
         $TipoPoliza= new TipoPoliza();
         $TipoPoliza->descripcion= $request->descripcion;
         $TipoPoliza->save();
+        $TipoPoliza->coberturas()->attach($request->id);
+
 
     }
 
@@ -120,10 +122,16 @@ class TipoPolizaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $TipoPoliza= TipoPoliza::destroy($request->id);
-        return $TipoPoliza;
+        //$TipoPoliza= TipoPoliza::destroy($request->id);
+        //return $TipoPoliza;
+
+
+        //Elimina
+        $tipopoliza = TipoPoliza::find($id);
+        $tipopoliza->coberturas()->detach();
+        $tipopoliza->delete();
     }
 }
 
