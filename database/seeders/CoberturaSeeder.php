@@ -19,15 +19,15 @@ class CoberturaSeeder extends Seeder
             
             [
                 'descripcion' => 'Cobertura por daños a la propiedad',
-                'monto_cobertura' => 500000,
+                'monto_cobertura' => 1000,
             ],
             [
                 'descripcion' => 'Cobertura por fraude',
-                'monto_cobertura' => 400000,
+                'monto_cobertura' => 700,
             ],
             [
                 'descripcion' => 'Cobertura por ciberseguridad',
-                'monto_cobertura' => 500000,
+                'monto_cobertura' => 500,
             ],
         ];
 
