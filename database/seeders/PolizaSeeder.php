@@ -23,7 +23,7 @@ class PolizaSeeder extends Seeder
             'fecha_vencimiento'=>'2024-08-25',
             'cobertura'=>'1',
             'monto_prima'=>'10000',
-            'estado'=>'activa',
+            'estado'=>'Activa',
         ];
         DB::table('polizas')->insert($data);
         

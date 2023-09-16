@@ -78,6 +78,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
   
   Route::get('cobertura-poliza/{id}', [PolizaController::class, 'VerCoberturaPorTipoPoliza'])->middleware(('can:policies.view'))->name('policies.view'); //muestra todos los registros
+  Route::get('cobertura-monto/{id}', [PolizaController::class, 'VerMonto_Cobertura'])->middleware(('can:policies.view'))->name('policies.view'); //muestra todos los registros
 
 //RUTA QUE MUESTRA SI EL USUARIO TIENE POLIZAS
 

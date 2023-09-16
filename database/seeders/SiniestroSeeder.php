@@ -26,7 +26,7 @@ class SiniestroSeeder extends Seeder
             'lugar'=>'el cuji',
 
             'descripcion'=>'Un vehículo de la empresa XYZ colisionó con otro vehículo en la ciudad de Barquisimeto.',
-            'estado'=>'activa',
+            'estado'=>'Activa',
         ];
         DB::table('siniestros')->insert($data);
     }

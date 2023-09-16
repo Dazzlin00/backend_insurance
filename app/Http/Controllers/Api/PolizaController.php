@@ -56,8 +56,20 @@ class PolizaController extends Controller
     {
 
 
-       
-      /*  // Obtenemos el usuario autenticado
+
+        /*  // Obtenemos el usuario autenticado
+          $user = Auth::user();
+
+          // Consultamos la tabla `siniestro_usuario` para obtener los ID de los siniestros del usuario
+          $polizaid = Poliza_Usuario::where('id_usuario', $user->id)->pluck('id_poliza');
+
+          // Consultamos la tabla `siniestros` para obtener los siniestros del usuario
+          $poliza = Poliza::whereIn('id', $polizaid)->get();
+
+          // Devolvemos los siniestros
+          return $poliza;*/
+
+        // Obtenemos el usuario autenticado
         $user = Auth::user();
 
         // Consultamos la tabla `siniestro_usuario` para obtener los ID de los siniestros del usuario
@@ -66,25 +78,13 @@ class PolizaController extends Controller
         // Consultamos la tabla `siniestros` para obtener los siniestros del usuario
         $poliza = Poliza::whereIn('id', $polizaid)->get();
 
+        // Obtenemos la descripción del tipo de póliza para cada siniestro
+        $poliza->each(function ($poliza) {
+            $poliza->tipo_poliza = TipoPoliza::find($poliza->tipo_poliza)->descripcion;
+        });
+
         // Devolvemos los siniestros
-        return $poliza;*/
-
-        // Obtenemos el usuario autenticado
-$user = Auth::user();
-
-// Consultamos la tabla `siniestro_usuario` para obtener los ID de los siniestros del usuario
-$polizaid = Poliza_Usuario::where('id_usuario', $user->id)->pluck('id_poliza');
-
-// Consultamos la tabla `siniestros` para obtener los siniestros del usuario
-$poliza = Poliza::whereIn('id', $polizaid)->get();
-
-// Obtenemos la descripción del tipo de póliza para cada siniestro
-$poliza->each(function($poliza) {
-    $poliza->tipo_poliza = TipoPoliza::find($poliza->tipo_poliza)->descripcion;
-});
-
-// Devolvemos los siniestros
-return $poliza;
+        return $poliza;
 
     }
 
@@ -125,6 +125,17 @@ return $poliza;
 
         // Devolvemos los resultados
         return $coberturas;
+    }
+
+    public function VerMonto_Cobertura($tipo_poliza)
+    {
+
+
+        $cobertura = Cobertura::find($tipo_poliza);
+        if ($cobertura) {
+            return $cobertura->monto_cobertura;
+        }
+        return null;
     }
 
     /**
@@ -201,9 +212,10 @@ return $poliza;
         // Actualiza la poliza
         $poliza = Poliza::findOrFail($id);
         //$poliza->id_usuario = $request->id_usuario;
-        //  $poliza->num_poliza = $request->num_poliza;
+        //$poliza->num_poliza = $request->num_poliza;
         $poliza->fecha_inicio = $request->fecha_inicio;
         $poliza->fecha_vencimiento = $request->fecha_vencimiento;
+
         //$poliza->estado = $request->estado;
         $poliza->save();
         return $poliza;
@@ -212,8 +224,8 @@ return $poliza;
     public function Aprobar(Request $request, $id)
     {
         // Actualiza 
-       $poliza = Poliza::findOrFail($id);
-      $poliza->estado = "Aprobada";
+        $poliza = Poliza::findOrFail($id);
+        $poliza->estado = "Aprobada";
 
         $poliza->save();
         return $poliza;
@@ -221,8 +233,8 @@ return $poliza;
     public function Rechazar(Request $request, $id)
     {
         // Actualiza 
-       $poliza = Poliza::findOrFail($id);
-      $poliza->estado = "Rechazada";
+        $poliza = Poliza::findOrFail($id);
+        $poliza->estado = "Rechazada";
 
         $poliza->save();
         return $poliza;
@@ -236,9 +248,9 @@ return $poliza;
      */
     public function destroy(Request $request, $id)
     {
-            //Elimina
-            $poliza = Poliza::find($id);
-            $poliza->usuarios()->detach();
-            $poliza->delete();
+        //Elimina
+        $poliza = Poliza::find($id);
+        $poliza->usuarios()->detach();
+        $poliza->delete();
     }
 }
