@@ -25,6 +25,7 @@ use App\Http\Resources\UserResource;
 //INICIO Y REGITRO DE USUARIOS
 Route::post('login', [LoginController::class, 'login']);
 Route::post('register', [RegisterController::class, 'register']);
+Route::get('planes', [TipoPolizaController::class, 'getAll']);
 
 //RECIBE MENSAJES DEL HOME
 Route::post('general-mensajes', [GeneralMensajesController::class, 'store']);

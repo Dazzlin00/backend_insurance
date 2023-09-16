@@ -21,6 +21,21 @@ class TipoPolizaController extends Controller
         return $TipoPoliza;
     }
 
+    public function getAll()
+    {
+        $TipoPoliza = TipoPoliza::all();
+
+        foreach($TipoPoliza as $tip){
+            $tip->coberturas = DB::table('coberturas')
+                ->join('tipo_poliza__coberturas', 'coberturas.id', '=', 'tipo_poliza__coberturas.id_cobertura')
+                ->where('tipo_poliza__coberturas.id_tipo_poliza', $tip->id)
+                ->select('coberturas.descripcion','coberturas.monto_cobertura')
+                ->get();
+        }
+        return $TipoPoliza;
+    }
+
+
     public function getAllTypes()
     {
         $TipoPoliza = DB::table('tipo_polizas')
