@@ -18,8 +18,11 @@ class TipoPolizaSeeder extends Seeder
         $data= [ 
             [  'descripcion'=>' Automovil',
         ],
-        [  'descripcion'=>' Ciberseguridad',
+        [  'descripcion'=>' Salud',
         ],
+        [  'descripcion'=>' Vivienda',
+    ],
+        
         ];
         DB::table('tipo_polizas')->insert($data);
     }

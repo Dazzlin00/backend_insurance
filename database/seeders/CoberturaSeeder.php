@@ -18,16 +18,17 @@ class CoberturaSeeder extends Seeder
         $data = [
             
             [
-                'descripcion' => 'Cobertura por daños a la propiedad',
-                'monto_cobertura' => 1000,
-            ],
-            [
-                'descripcion' => 'Cobertura por fraude',
-                'monto_cobertura' => 700,
-            ],
-            [
-                'descripcion' => 'Cobertura por ciberseguridad',
+                'descripcion' => 'Cobertura de colisión',
                 'monto_cobertura' => 500,
+            ],
+           
+            [
+                'descripcion' => 'Cobertura por Atención médica',
+                'monto_cobertura' => 600,
+            ],
+            [
+                'descripcion' => 'Cobertura por Incendio',
+                'monto_cobertura' => 700,
             ],
         ];
 

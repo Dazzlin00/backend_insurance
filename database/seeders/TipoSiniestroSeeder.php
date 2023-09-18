@@ -21,10 +21,10 @@ class TipoSiniestroSeeder extends Seeder
             ],
            
             [
-                'descripcion'=>'Robo'
+                'descripcion'=>'Enfermedades'
             ],
             [
-                'descripcion'=>'Perdida de datos'
+                'descripcion'=>'Incendio'
             ],
         ];
         DB::table('tipo_siniestros')->insert($data);

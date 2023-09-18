@@ -16,6 +16,10 @@ class Pago extends Model
         'Rechazado',
         'Pagado'
     ];
+    public function polizas()
+    {
+        return $this->belongsToMany(Poliza::class, 'poliza__usuarios', 'id_poliza', 'id_usuario');
+    }
 
     public function setEstadoAttribute($value)
     {

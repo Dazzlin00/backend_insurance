@@ -211,8 +211,8 @@ class PolizaController extends Controller
     {
         // Actualiza la poliza
         $poliza = Poliza::findOrFail($id);
-        //$poliza->id_usuario = $request->id_usuario;
-        //$poliza->num_poliza = $request->num_poliza;
+       
+        $poliza->monto_prima = $request->monto_prima;
         $poliza->fecha_inicio = $request->fecha_inicio;
         $poliza->fecha_vencimiento = $request->fecha_vencimiento;
 

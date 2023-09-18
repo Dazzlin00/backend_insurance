@@ -24,6 +24,10 @@ class Tipo_Poliza_CoberturaSeeder extends Seeder
             'id_cobertura'=>'2',
             
              ],
+             [ 'id_tipo_poliza'=>'3',
+             'id_cobertura'=>'3',
+             
+              ],
     
     ];
         DB::table('tipo_poliza__coberturas')->insert($data);
